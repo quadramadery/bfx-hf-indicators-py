@@ -1,75 +1,64 @@
+'use strict'
+from lodash/sum import _sum
 from bfxhfindicators.indicator import Indicator
-
 class ATR(Indicator):
-  def __init__(self, args = []):
-    [ period ] = args
-
-    self._p = period
-    self._prevCandle = None
-    self._buffer = []
- 
+    def __init__(self, args = []):
+    [period] = args
     super().__init__({
       'args': args,
       'id': 'atr',
-      'name': 'ATR(%f)' % period,
-      'seed_period': period,
-      'data_type': 'candle',
-      'data_key': '*'
+      'name': 'ATR(%f)' % (period),
+      'seedPeriod': period,
+      'dataType': 'candle',
+      'dataKey': '*'
     })
-
-  def reset(self):
-    super().reset()
-
+    self._p = period
     self._prevCandle = None
-    self._buffer = []
 
-  def seed(candles):
-    tr = map(lambda t: (
-      ATR.tr(None if t[0] == 0 else candles[t[0] - 1], t[1])
-    ), enumerate(candles))
+    def unserialize(self, args = []):
+    return ATR(args)
 
-    return sum(list(tr)) / len(candles)
-  
-  def calc(prevATR, p, prevCandle, candle):
-    return (prevATR * (p - 1) + ATR.tr(prevCandle, candle)) / p
+    def seed(self, candles = []):
+    return _sum(candles.map()) / len(candles)
 
-  def tr(prevCandle, candle):
-    if prevCandle == None:
-      return 0
+    def calc(self, prevATR, p, prevCandle, candle):
+    return ((prevATR * (p - 1)) + ATR.tr(prevCandle, candle)) / p
 
-    return max([
-      prevCandle['high'] - prevCandle['low'],
-      abs(candle['high'] - prevCandle['close']),
-      abs(candle['low'] - prevCandle['close'])
-    ])
+    def tr(self, prevCandle, candle = {}):
+      return Math.max(prevCandle.high - prevCandle.low if prevCandle else 0, Math.abs(candle.high - prevCandle.close) if prevCandle else 0, Math.abs(candle.low - prevCandle.close) if prevCandle else 0)
 
-  def update(self, candle):
-    if self.l() == 0:
-      if len(self._buffer) < self._p:
-        self._buffer.append(candle)
+    def reset(self):
+      super().reset()
+      self._buffer = []
+      self._prevCandle = None
+
+    def update(self, candle):
+      if self.l() == 0:
+        if len(self._buffer) < self._p:
+          self._buffer.append(candle)
+        else:
+          self._buffer[-1] = candle
+        if len(self._buffer) == self._p:
+          super().update(ATR.seed(self._buffer))
       else:
-        self._buffer[-1] = candle
-      
-      if len(self._buffer) == self._p:
-        super().update(ATR.seed(self._buffer))
-    else:
-      super().update(
-        ATR.calc(self.prev(), self._p, self._prevCandle, candle)
-      )
+        super().update(ATR.calc(self.prev(), self._p, self._prevCandle, candle))
+      return self.v()
 
-    return self.v()
+    def add(self, candle):
+      if self.l() == 0:
+        if len(self._buffer) < self._p:
+          self._buffer.append(candle)
+        if len(self._buffer) == self._p:
+          super().add(ATR.seed(self._buffer))
+      else:
+        super().add(ATR.calc(self.v(), self._p, self._prevCandle, candle))
+      self._prevCandle = candle
+      return self.v()
 
-  def add(self, candle):
-    if self.l() == 0:
-      if len(self._buffer) < self._p:
-        self._buffer.append(candle)
-      
-      if len(self._buffer) == self._p:
-        super().add(ATR.seed(self._buffer))
-    else:
-      super().add(
-        ATR.calc(self.v(), self._p, self._prevCandle, candle)
-      )
-    
-    self._prevCandle = candle
-    return self.v()
+
+""
+""
+""
+""
+""
+module.exports = ATR

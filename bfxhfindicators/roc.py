@@ -1,42 +1,45 @@
+'use strict'
+from lodash/isEmpty import _isEmpty
 from bfxhfindicators.indicator import Indicator
-
 class ROC(Indicator):
   def __init__(self, args = []):
-    [ period ] = args
-
+    [period] = args
     super().__init__({
       'args': args,
       'id': 'roc',
       'name': 'ROC(%f)' % (period),
-      'seed_period': period
+      'seedPeriod': period
     })
-
     self._p = period
-    self._buffer = []
-  
+
+  def unserialize(self, args = []):
+    return ROC(args)
+
   def reset(self):
     super().reset()
     self._buffer = []
 
-  def update(self, v):
+  def update(self, value):
     if len(self._buffer) == 0:
-      self._buffer.append(v)
+      self._buffer.append(value)
     else:
-      self._buffer[-1] = v
-
+      self._buffer[-1] = value
     if len(self._buffer) < self._p:
-      return
-    
-    super().update(((v - self._buffer[0]) / self._buffer[0]) * 100)
-    return self.v()
+      return self.v()
+    return super().update(((value - self._buffer[0]) / self._buffer[0]) * 100)
 
-  def add(self, v):
+  def add(self, value):
     if len(self._buffer) == self._p:
-      super().add(((v - self._buffer[0]) / self._buffer[0]) * 100)
-    
-    self._buffer.append(v)
-
+      super().add(((value - self._buffer[0]) / self._buffer[0]) * 100)
+    self._buffer.append(value)
     if len(self._buffer) > self._p:
       del self._buffer[0]
-
     return self.v()
+
+
+""
+""
+""
+""
+""
+module.exports = ROC

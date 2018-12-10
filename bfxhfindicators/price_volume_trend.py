@@ -1,18 +1,20 @@
+'use strict'
 from bfxhfindicators.indicator import Indicator
-
 class PVT(Indicator):
   def __init__(self, args = []):
-    self._lastCandle = None
-
     super().__init__({
       'args': args,
       'id': 'pvt',
       'name': 'PVT',
-      'seed_period': 0,
-      'data_type': 'candle',
-      'data_key': '*'
+      'seedPeriod': 0,
+      'dataType': 'candle',
+      'dataKey': '*'
     })
-  
+    self._lastCandle = None
+
+  def unserialize(self, args = []):
+    return PVT(args)
+
   def reset(self):
     super().reset()
     self._lastCandle = None
@@ -20,26 +22,26 @@ class PVT(Indicator):
   def update(self, candle):
     if self._lastCandle == None:
       return self.v()
-    
-    close = candle['close']
-    vol = candle['vol']
-    pvt = ((close - self._lastCandle['close']) / self._lastCandle['close']) * vol
+    undefined = candle
+    pvt = ((close - self._lastCandle.close) / self._lastCandle.close) * vol
     v = self.prev() if self.l() > 1 else 0
-
     return super().update(pvt + v)
 
   def add(self, candle):
     if self._lastCandle == None:
       self._lastCandle = candle
       return self.v()
-    
-    close = candle['close']
-    vol = candle['vol']
-    pvt = ((close - self._lastCandle['close']) / self._lastCandle['close']) * vol
+    undefined = candle
+    pvt = ((close - self._lastCandle.close) / self._lastCandle.close) * vol
     v = self.v() if self.l() > 0 else 0
-
     super().add(pvt + v)
-
     self._lastCandle = candle
-
     return self.v()
+
+
+""
+""
+""
+""
+""
+module.exports = PVT

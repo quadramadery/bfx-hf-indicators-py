@@ -1,23 +1,26 @@
+'use strict'
 from bfxhfindicators.indicator import Indicator
-
+from lodash/min import _min
+from lodash/max import _max
 class PC(Indicator):
   def __init__(self, args = []):
-    [ period, offset ] = args
-
+    [period, offset] = args
+    super().__init__({
+      'args': args,
+      'id': 'pc',
+      'name': 'PC(%f, %f)' % (period, offset),
+      'seedPeriod': period,
+      'dataType': 'candle',
+      'dataKey': '*'
+    })
     self._p = period
     self._offset = offset
     self._l = period + offset
     self._buffer = []
 
-    super().__init__({
-      'args': args,
-      'id': 'pc',
-      'name': 'PC(%f, %f)' % (period, offset),
-      'seed_period': period,
-      'data_type': 'candle',
-      'data_key': '*'
-    })
-  
+  def unserialize(self, args = []):
+    return PC(args)
+
   def reset(self):
     super().reset()
     self._buffer = []
@@ -27,32 +30,38 @@ class PC(Indicator):
       self._buffer.append(candle)
     else:
       self._buffer[-1] = candle
-
     if len(self._buffer) < self._l:
       return super().update(0)
-
-    upper = max(map(lambda c: c['high'], self._buffer[0:self._p]))
-    lower = min(map(lambda c: c['low'], self._buffer[0:self._p]))
-
+    upper = _max(self._buffer.slice(0, self._p).map())
+    lower = _min(self._buffer.slice(0, self._p).map())
     return super().update({
       'upper': upper,
-      'center': (upper + lower) / 2,
-      'lower': lower
+      'lower': lower,
+      'center': (upper + lower) / 2
     })
 
   def add(self, candle):
     self._buffer.append(candle)
-
     if len(self._buffer) > self._l:
       del self._buffer[0]
-    elif len(self._buffer) < self._l:
+    else:
+      if len(self._buffer) < self._l:
       return self.v()
-
-    upper = max(map(lambda c: c['high'], self._buffer[0:self._p]))
-    lower = min(map(lambda c: c['low'], self._buffer[0:self._p]))
-
+    upper = _max(self._buffer.slice(0, self._p).map())
+    lower = _min(self._buffer.slice(0, self._p).map())
     return super().add({
       'upper': upper,
-      'center': (upper + lower) / 2,
-      'lower': lower
+      'lower': lower,
+      'center': (upper + lower) / 2
     })
+
+  def ready(self):
+    return _isObject(self.v())
+
+
+""
+""
+""
+""
+""
+module.exports = PC

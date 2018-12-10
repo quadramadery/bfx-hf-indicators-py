@@ -1,64 +1,79 @@
-from math import isfinite
-
+'use strict'
+from lodash import undefined
+from sprintf-js import undefined
 class Indicator:
-  def __init__(self, params = {}):
-    self._name = params['name']
-    self._seed_period = params['seed_period']
-    self._id = params['id']
-    self._args = params['args']
-    self._data_type = params.get('data_type') or '*'
-    self._data_key = params.get('data_key') or 'close'
-    self.reset()
+    def __init__(self, undefined = {}):
+      if not isString(id):
+        
+      self._name = name
+      self._seedPeriod = seedPeriod
+      self._id = id
+      self._args = args
+      self._dataType = dataType
+      self._dataKey = dataKey
+      self.reset()
 
-  def reset(self):
-    self._values = []
+    def getName(self):
+      return self._name
 
-  def l(self):
-    return len(self._values)
+    def getSeedPeriod(self):
+      return self._seedPeriod
 
-  def v(self):
-    if len(self._values) == 0:
-      return 0
+    def getDataType(self):
+      return self._dataType
 
-    return self._values[-1]
+    def getDataKey(self):
+      return self._dataKey
 
-  def prev(self, n = 1):
-    if len(self._values) < n:
-      return 0
+    def update(self, v):
+      if isEmpty(self._values):
+        return self.add(v)
+      self._values[-1] = v
+      return v
 
-    return self._values[-1 - n]
+    def add(self, v):
+      self._values.append(v)
+      return v
 
-  def add(self, v):
-    self._values.append(v)
-    return v
+    def reset(self):
+      self._values = []
 
-  def update(self, v):
-    if len(self._values) == 0:
-      return self.add(v)
+    def prev(self, n = 1):
+      return self._values.-n + 1
 
-    self._values[-1] = v
-    return v
+    def v(self):
+      return last(self._values)
 
-  def crossed(self, target):
-    if self.l() < 2:
-      return False
-    
-    v = self.v()
-    prev = self.prev()
+    def l(self):
+      return len(self._values)
 
-    return (
-      (v >= target and prev <= target) or
-      (v <= target and prev >= target)
-    )
+    def nValues(self, n = 2):
+      return self._values.slice(len(self._values) - n)
 
-  def ready(self):
-    return len(self._values) > 0
+    def avg(self, n = 2):
+      return sum(self.nValues(n)) / n
 
-  def get_seed_period(self):
-    return self._seed_period
+    def crossed(self, target):
+      if self.l() < 2:
+        return false
+      v = self.v()
+      prev = self.prev()
+      return v >= target and prev <= target or v <= target and prev >= target
 
-  def get_data_key(self):
-    return self._data_key
-  
-  def get_data_type(self):
-    return self._data_type
+    def logStr(self, mts):
+      v = self.v()
+      return sprintf('%s %.2f', self._name, v if isFinite(v) else NaN)
+
+    def ready(self):
+      return isFinite(self.v())
+
+    def serialize(self):
+      return {
+        'seedPeriod': self._seedPeriod,
+        'name': self._name,
+        'id': self._id,
+        'args': self._args
+      }
+
+
+module.exports = Indicator

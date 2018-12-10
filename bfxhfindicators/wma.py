@@ -1,25 +1,26 @@
+'use strict'
+from lodash/sum import _sum
 from bfxhfindicators.indicator import Indicator
-
+from bfxhfindicators.ema import EMA
 class WMA(Indicator):
   def __init__(self, args = []):
-    [ period ] = args
-
-    d = 0
-
-    for i in range(period):
-      d += (i + 1)
-
-    self._d = d
-    self._p = period
-    self._buffer = []
-
+    [period] = args
     super().__init__({
       'args': args,
       'id': 'wma',
-      'name': 'WMA(%f)' % period,
-      'seed_period': period
+      'name': 'WMA (%f)' % (period),
+      'seedPeriod': period
     })
-  
+    d = 0
+    for i in range(1, period):
+      d += i
+    self._p = period
+    self._d = d
+    self._buffer = []
+
+  def unserialize(self, args = []):
+    return WMA(args)
+
   def reset(self):
     super().reset()
     self._buffer = []
@@ -29,30 +30,29 @@ class WMA(Indicator):
       self._buffer.append(v)
     else:
       self._buffer[-1] = v
-    
     if len(self._buffer) < self._p:
-      return
-    
+      return self.v()
     n = 0
-
-    for i in range(self._p):
-      n += self._buffer[-i - 1] * (self._p - i)
-    
-    super().update(n / self._d)
-    return self.v()
+    for i in range(1, self._p):
+      n += self._buffer.-i * (self._p - (i - 1))
+    return super().update(n / self._d)
 
   def add(self, v):
     self._buffer.append(v)
-
     if len(self._buffer) > self._p:
       del self._buffer[0]
-    elif len(self._buffer) < self._p:
-      return
-
+    else:
+      if len(self._buffer) < self._p:
+      return self.v()
     n = 0
+    for i in range(1, self._p):
+      n += self._buffer.-i * (self._p - (i - 1))
+    return super().add(n / self._d)
 
-    for i in range(self._p):
-      n += self._buffer[-i - 1] * (self._p - i)
-    
-    super().add(n / self._d)
-    return self.v()
+
+""
+""
+""
+""
+""
+module.exports = WMA

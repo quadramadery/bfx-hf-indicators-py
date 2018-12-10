@@ -1,88 +1,100 @@
+'use strict'
+from lodash/isFinite import _isFinite
 from bfxhfindicators.indicator import Indicator
 from bfxhfindicators.ema import EMA
-from bfxhfindicators.stddev import StdDeviation
-from math import isfinite
-
+from bfxhfindicators.stddev import StdDev
 class RVI(Indicator):
   def __init__(self, args = []):
-    [ period ] = args
-
-    self._stddev = StdDeviation([period])
+    [period] = args
+    super().__init__({
+      'args': args,
+      'id': 'rvi',
+      'name': 'RVI(%f)' % (period),
+      'seedPeriod': period
+    })
+    self._stddev = StdDev([period])
     self._uEMA = EMA([period])
     self._dEMA = EMA([period])
     self._prevInputValue = None
 
-    super().__init__({
-      'args': args,
-      'id': 'rvi',
-      'name': 'RVI(%f)' % period,
-      'seed_period': period
-    })
+  def unserialize(self, args = []):
+    return RVI(args)
 
   def reset(self):
     super().reset()
+    if self._stddev:
+      self._stddev.reset()
+    if self._uEMA:
+      self._uEMA.reset()
+    if self._dEMA:
+      self._dEMA.reset()
     self._prevInputValue = None
-    self._stddev.reset()
-    self._uEMA.reset()
-    self._dEMA.reset()
 
-  def ud(candlePrice, prevCandlePrice, stddev):
-    if prevCandlePrice == None:
-      return [0, 0]
-    elif candlePrice > prevCandlePrice:
-      return [stddev, 0]
-    elif candlePrice < prevCandlePrice:
-      return [0, stddev]
+  def _ud(self, candlePrice, stddev):
+    if self._prevInputValue == None:
+      return {
+        'u': 0,
+        'd': 0
+      }
     else:
-      return [0, 0]
+      if candlePrice > self._prevInputValue:
+      return {
+        'u': stddev,
+        'd': 0
+      }
+    else:
+      if candlePrice < self._prevInputValue:
+      return {
+        'u': 0,
+        'd': stddev
+      }
+    else:
+      return {
+        'u': 0,
+        'd': 0
+      }
 
-  def update(self, v):
+  def update(self, value):
     if self._prevInputValue == None:
       return self.v()
-
-    self._stddev.update(v)
+    self._stddev.update(value)
     stddev = self._stddev.v()
-
-    if not isfinite(stddev):
+    if not _isFinite(stddev):
       return self.v()
-    
-    [u, d] = RVI.ud(v, self._prevInputValue, stddev)
-
+    undefined = self._ud(value, self._stddev.v())
     self._uEMA.update(u)
     self._dEMA.update(d)
-
     uSum = self._uEMA.v()
     dSum = self._dEMA.v()
-
     if uSum == dSum:
       return super().update(0)
     else:
       return super().update(100 * (uSum / (uSum + dSum)))
 
-  def add(self, v):
+  def add(self, value):
     if self._prevInputValue == None:
-      self._prevInputValue = v
+      self._prevInputValue = value
       return self.v()
-
-    self._stddev.add(v)
+    self._stddev.add(value)
     stddev = self._stddev.v()
-
-    if not isfinite(stddev):
+    if not _isFinite(stddev):
       return self.v()
-    
-    [u, d] = RVI.ud(v, self._prevInputValue, stddev)
-
+    undefined = self._ud(value, stddev)
     self._uEMA.add(u)
     self._dEMA.add(d)
-
     uSum = self._uEMA.v()
     dSum = self._dEMA.v()
-
     if uSum == dSum:
       super().add(0)
     else:
       super().add(100 * (uSum / (uSum + dSum)))
-    
-    self._prevInputValue = v
-
+    self._prevInputValue = value
     return self.v()
+
+
+""
+""
+""
+""
+""
+module.exports = RVI

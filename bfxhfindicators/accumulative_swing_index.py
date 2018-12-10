@@ -1,52 +1,48 @@
+'use strict'
+from lodash/max import _max
 from bfxhfindicators.indicator import Indicator
-from math import isfinite, exp, pow
-
+from bignumber.js import BigN
 class AccumulativeSwingIndex(Indicator):
   def __init__(self, args = []):
-    [ limitMoveValue ] = args
-
-    self._lmv = limitMoveValue
-    self._prevCandle = None
- 
+    [limitMoveValue] = args
     super().__init__({
       'args': args,
       'id': 'asi',
-      'name': 'ASI(%f)' % limitMoveValue,
-      'seed_period': None,
-      'data_type': 'candle',
-      'data_key': '*'
+      'name': 'ASI(%f)' % (limitMoveValue),
+      'dataType': 'candle',
+      'dataKey': '*'
     })
+    self._lmv = limitMoveValue
+    self._prevCandle = None
 
-  def calcSI(candle, prevCandle, lmv):
-    if lmv == 0:
+  def unserialize(self, args = []):
+    return AccumulativeSwingIndex(args)
+
+  def calcSI(self, candle, prevCandle, _lmv):
+    if _lmv == 0:
       return 0
-    
-    open = candle['open']
-    high = candle['high']
-    low = candle['low']
-    close = candle['close']
-    prevClose = prevCandle['close']
-    prevOpen = prevCandle['open']
-
+    lmv = _lmv
+    open = candle.open
+    high = candle.high
+    low = candle.low
+    close = candle.close
+    prevClose = prevCandle.close
+    prevOpen = prevCandle.open
     k = max([high - prevClose, prevClose - low])
     tr = max([k, high - low])
     sh = prevClose - prevOpen
-
+    er = 0
     if prevClose > high:
       er = high - prevClose
-    elif prevClose < low:
-      er = prevClose - low
     else:
-      er = 0
-
-    r = tr - (er * 0.5) + (sh * 0.25)
-
-    if r == 0:
+      if prevClose < low:
+      er = prevClose - low
+    r = tr - ((er * 0.5) + (sh * 0.25))
+    if r.isEqualTo(0):
       return 0
-    
-    siNum = close - prevClose + ((close - open) * 0.5) + ((prevClose - prevOpen) * 0.25)
-
-    return ((k / lmv) * 50) * (siNum / r)
+    siNum = ((close - prevClose) + ((close - open) * 0.5)) + ((prevClose - prevOpen) * 0.25)
+    si = ((k / lmv) * 50) * (siNum / r)
+    return si.toNumber()
 
   def reset(self):
     super().reset()
@@ -55,19 +51,23 @@ class AccumulativeSwingIndex(Indicator):
   def update(self, candle):
     if self._prevCandle == None:
       return super().update(0)
-    
     si = AccumulativeSwingIndex.calcSI(candle, self._prevCandle, self._lmv)
-    super().update(self.prev() + si)
-    return self.v()
+    return super().update(self.prev() + si)
 
   def add(self, candle):
     if self._prevCandle == None:
       super().add(0)
       self._prevCandle = candle
       return
-    
     si = AccumulativeSwingIndex.calcSI(candle, self._prevCandle, self._lmv)
     super().add(self.v() + si)
-
     self._prevCandle = candle
     return self.v()
+
+
+""
+""
+""
+""
+""
+module.exports = AccumulativeSwingIndex

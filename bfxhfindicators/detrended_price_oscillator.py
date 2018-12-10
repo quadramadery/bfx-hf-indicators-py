@@ -1,35 +1,38 @@
+'use strict'
 from bfxhfindicators.indicator import Indicator
 from bfxhfindicators.sma import SMA
-from math import floor
-
 class DPO(Indicator):
   def __init__(self, args = []):
-    [ period ] = args
-
-    self._pricePeriod = floor(period / 2) + 1
-    self._sma = SMA([period])
-
+    [period] = args
     super().__init__({
       'args': args,
       'id': 'dpo',
-      'name': 'DPO(%f)' % period,
-      'seed_period': period
+      'name': 'DPO(%f)' % (period),
+      'seedPeriod': period
     })
-  
+    self._pricePeriod = Math.floor(period / 2) + 1
+    self._sma = SMA([period])
+
+  def unserialize(self, args = []):
+    return DPO(args)
+
   def reset(self):
     super().reset()
-    self._sma.reset()
+    if self._sma:
+      self._sma.reset()
 
   def update(self, v):
     self._sma.update(v)
-    super().update(v - self._sma.prev(self._pricePeriod - 1))
-    return self.v()
+    return super().update(v - self._sma.prev(self._pricePeriod - 1))
 
   def add(self, v):
     self._sma.add(v)
+    return super().add(v - self._sma.prev(self._pricePeriod))
 
-    if self._sma.l() < self._pricePeriod + 1:
-      return
 
-    super().add(v - self._sma.prev(self._pricePeriod))
-    return self.v()
+""
+""
+""
+""
+""
+module.exports = DPO

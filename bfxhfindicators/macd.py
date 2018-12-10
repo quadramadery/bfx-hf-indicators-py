@@ -1,71 +1,62 @@
+'use strict'
 from bfxhfindicators.indicator import Indicator
 from bfxhfindicators.ema import EMA
-from math import isfinite
-
 class MACD(Indicator):
   def __init__(self, args = []):
-    [ fastMA, slowMA, signalMA ] = args
-
+    [fastMA, slowMA, signalMA] = args
+    super().__init__({
+      'args': args,
+      'id': 'macd',
+      'name': 'MACD(%f,%f,%f)' % (fastMA, slowMA, signalMA),
+      'seedPeriod': Math.max(fastMA, slowMA) + signalMA
+    })
     self._slowEMA = EMA([slowMA])
     self._fastEMA = EMA([fastMA])
     self._signalEMA = EMA([signalMA])
 
-    super().__init__({
-      'args': args,
-      'id': 'macd',
-      'name': 'MACD(%f, %f, %f)' % (fastMA, slowMA, signalMA),
-      'seed_period': max([fastMA, slowMA]) + signalMA
-    })
-  
+  def unserialize(self, args = []):
+    return MACD(args)
+
   def reset(self):
     super().reset()
+    if self._slowEMA:
+      self._slowEMA.reset()
+    if self._fastEMA:
+      self._fastEMA.reset()
+    if self._signalEMA:
+      self._signalEMA.reset()
 
-    self._slowEMA.reset()
-    self._fastEMA.reset()
-    self._signalEMA.reset()
-
-  def update(self, v):
-    slowEMA = self._slowEMA.update(v)
-    fastEMA = self._fastEMA.update(v)
-
-    if not isfinite(slowEMA) or not isfinite(fastEMA):
-      return
-
+  def update(self, value):
+    slowEMA = self._slowEMA.update(value)
+    fastEMA = self._fastEMA.update(value)
     macd = fastEMA - slowEMA
     signalEMA = self._signalEMA.update(macd)
-
-    if not isfinite(signalEMA):
-      return
-
     histogram = macd - signalEMA
-
-    super().update({
+    return super().update({
       'macd': macd,
       'signal': signalEMA,
       'histogram': histogram
     })
 
-    return self.v()
-
-  def add(self, v):
-    slowEMA = self._slowEMA.add(v)
-    fastEMA = self._fastEMA.add(v)
-
-    if not isfinite(slowEMA) or not isfinite(fastEMA):
-      return
-
+  def add(self, value):
+    slowEMA = self._slowEMA.add(value)
+    fastEMA = self._fastEMA.add(value)
     macd = fastEMA - slowEMA
     signalEMA = self._signalEMA.add(macd)
-
-    if not isfinite(signalEMA):
-      return
-
     histogram = macd - signalEMA
-
-    super().add({
+    return super().add({
       'macd': macd,
       'signal': signalEMA,
       'histogram': histogram
     })
 
-    return self.v()
+  def ready(self):
+    return _isObject(self.v())
+
+
+""
+""
+""
+""
+""
+module.exports = MACD

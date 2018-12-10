@@ -1,41 +1,47 @@
-from bfxhfindicators.indicator import Indicator
+'use strict'
 from bfxhfindicators.sma import SMA
-
+from bfxhfindicators.indicator import Indicator
 class AO(Indicator):
-  def __init__(self, args = []):
-    self._smaShort = SMA([5])
-    self._smaLong = SMA([34])
-
+      def __init__(self, args = []):
     super().__init__({
       'args': args,
       'id': 'ao',
       'name': 'AO',
-      'seed_period': None,
-      'data_type': 'candle',
-      'data_key': '*'
+      'seedPeriod': 34,
+      'dataType': 'candle',
+      'dataKey': '*'
     })
+    self._smaShort = SMA([5])
+    self._smaLong = SMA([34])
 
-  def reset(self):
+      def unserialize(self, args = []):
+    return AO(args)
+
+      def reset(self):
     super().reset()
+    if self._smaShort:
+      self._smaShort.reset()
+    if self._smaLong:
+      self._smaLong.reset()
 
-    self._smaShort.reset()
-    self._smaLong.reset()
+      def update(self, candle = {}):
+      undefined = candle
+      v = (high + low) / 2
+      self._smaShort.update(v)
+      self._smaLong.update(v)
+      return super().update(self._smaShort.v() - self._smaLong.v())
 
-  def update(self, candle):
-    v = (candle['high'] + candle['low']) / 2
+      def add(self, candle = {}):
+        undefined = candle
+        v = (high + low) / 2
+        self._smaShort.add(v)
+        self._smaLong.add(v)
+        return super().add(self._smaShort.v() - self._smaLong.v())
 
-    self._smaShort.update(v)
-    self._smaLong.update(v)
 
-    super().update(self._smaShort.v() - self._smaLong.v())
-    return self.v()
-
-  def add(self, candle):
-    v = (candle['high'] + candle['low']) / 2
-
-    self._smaShort.add(v)
-    self._smaLong.add(v)
-
-    super().add(self._smaShort.v() - self._smaLong.v())
-    return self.v()
-   
+""
+""
+""
+""
+""
+module.exports = AO

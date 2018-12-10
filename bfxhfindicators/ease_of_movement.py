@@ -1,70 +1,72 @@
+'use strict'
+from bignumber.js import BigN
+from lodash/isFinite import _isFinite
 from bfxhfindicators.indicator import Indicator
 from bfxhfindicators.sma import SMA
-from math import isfinite
-
 class EOM(Indicator):
   def __init__(self, args = []):
-    [ divisor, length ] = args
-
-    self._d = divisor
-    self._sma = SMA([length])
-    self._lastCandle = None
-
+    [divisor, length] = args
     super().__init__({
       'args': args,
       'id': 'eom',
       'name': 'EOM(%f, %f)' % (divisor, length),
-      'seed_period': length,
-      'data_type': 'candle',
-      'data_key': '*'
+      'seedPeriod': length,
+      'dataType': 'candle',
+      'dataKey': '*'
     })
+    self._d = divisor
+    self._sma = SMA([length])
+    self._lastCandle = None
+
+  def unserialize(self, args = []):
+    return EOM(args)
 
   def reset(self):
     super().reset()
+    if self._sma:
+      self._sma.reset()
     self._lastCandle = None
-    self._sma.reset()
 
-  def calcEOM(candle, lastCandle, divisor):
-    high = candle['high']
-    low = candle['low']
-    vol = candle['vol']
-    lastHigh = lastCandle['high']
-    lastLow = lastCandle['low']
-
-    moved = ((high + low) / 2) - ((lastHigh + lastLow) / 2)
-
-    if high == low:
-      boxRatio = 1
-    else:
-      boxRatio = (vol / divisor) / (high - low)
-
-    return moved / boxRatio
- 
   def update(self, candle):
-    if self._lastCandle == None:
+    if not self._lastCandle:
       return
-    
-    eom = EOM.calcEOM(candle, self._lastCandle, self._d)
-    self._sma.update(eom)
-
+    high = candle.high
+    low = candle.low
+    vol = candle.vol
+    lastHigh = self._lastCandle.high
+    lastLow = self._lastCandle.low
+    moved = high + low.div(2) - lastHigh + lastLow.div(2)
+    boxRatio = vol.div(self._d).div(high - low)
+    eom = moved.div(boxRatio)
+    self._sma.update(eom.toNumber())
     v = self._sma.v()
-
-    if isfinite(v):
+    if _isFinite(v):
       super().update(v)
     return self.v()
 
   def add(self, candle):
-    if self._lastCandle == None:
+    if not self._lastCandle:
       self._lastCandle = candle
       return
-    
-    eom = EOM.calcEOM(candle, self._lastCandle, self._d)
-    self._sma.add(eom)
-
+    high = candle.high
+    low = candle.low
+    vol = candle.vol
+    lastHigh = self._lastCandle.high
+    lastLow = self._lastCandle.low
+    moved = high + low.div(2) - lastHigh + lastLow.div(2)
+    boxRatio = 1 if candle.high == candle.low else vol.div(self._d).div(high - low)
+    eom = moved.div(boxRatio)
+    self._sma.add(eom.toNumber())
     v = self._sma.v()
-
-    if isfinite(v):
+    if _isFinite(v):
       super().add(v)
-    
     self._lastCandle = candle
     return self.v()
+
+
+""
+""
+""
+""
+""
+module.exports = EOM

@@ -1,47 +1,40 @@
-from math import isfinite
+'use strict'
+from lodash/isFinite import _isFinite
 from bfxhfindicators.indicator import Indicator
-
 class AccumulationDistribution(Indicator):
-  def moneyFlowVol(candle):
-    high = candle['high']
-    low = candle['low']
-    close = candle['close']
-    vol = candle['vol']
-    moneyFlowMult = 0
-
-    if high != low:
-      moneyFlowMult = ((close - low) - (high - close)) / (high - low)
-
-    return moneyFlowMult * vol
-  
   def __init__(self, args = []):
     super().__init__({
       'args': args,
       'id': 'ad',
       'name': 'Accum/Dist',
-      'seed_period': 0,
-      'data_type': 'candle',
-      'data_key': '*'
+      'dataType': 'candle',
+      'dataKey': '*'
     })
 
+  def unserialize(self, args = []):
+    return AccumulationDistribution(args)
+
+  def reset(self):
+    super().reset()
+
   def update(self, candle):
-    moneyFlowVol = AccumulationDistribution.moneyFlowVol(candle)
+    undefined = candle
+    moneyFlowMult = 0 if high == low else ((close - low) - (high - close)) / (high - low)
+    moneyFlowVol = moneyFlowMult * vol
     prev = self.prev()
-
-    if isfinite(prev):
-      super().update(prev + moneyFlowVol)
-    else:
-      super().update(moneyFlowVol)
-
-    return self.v()
+    return super().update(prev + moneyFlowVol if _isFinite(prev) else moneyFlowVol)
 
   def add(self, candle):
-    moneyFlowVol = AccumulationDistribution.moneyFlowVol(candle)
+    undefined = candle
+    moneyFlowMult = 0 if high == low else ((close - low) - (high - close)) / (high - low)
+    moneyFlowVol = moneyFlowMult * vol
     prev = self.v()
+    return super().add(prev + moneyFlowVol if _isFinite(prev) else moneyFlowVol)
 
-    if isfinite(prev):
-      super().add(prev + moneyFlowVol)
-    else:
-      super().add(moneyFlowVol)
 
-    return self.v()
+""
+""
+""
+""
+""
+module.exports = AccumulationDistribution

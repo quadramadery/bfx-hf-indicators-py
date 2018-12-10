@@ -1,42 +1,45 @@
+'use strict'
+from lodash/isEmpty import _isEmpty
 from bfxhfindicators.indicator import Indicator
-
 class Momentum(Indicator):
   def __init__(self, args = []):
-    [ period ] = args
-
-    self._p = period
-    self._buffer = []
-
+    [period] = args
     super().__init__({
       'args': args,
       'id': 'mo',
-      'name': 'MO(%f)' % period,
-      'seed_period': period
+      'name': 'MO(%f)' % (period),
+      'seedPeriod': period
     })
+    self._p = period
+
+  def unserialize(self, args = []):
+    return Momentum(args)
 
   def reset(self):
-    super().reset()
     self._buffer = []
     self._values = [0]
 
-  def update(self, v):
+  def update(self, value):
     if len(self._buffer) == 0:
-      self._buffer.append(v)
+      self._buffer.append(value)
     else:
-      self._buffer[-1] = v
-
+      self._buffer[-1] = value
     if len(self._buffer) < self._p:
       return self.v()
-    
-    return super().update(v - self._buffer[0])
+    return super().update(value - self._buffer[0])
 
-  def add(self, v):
+  def add(self, value):
     if len(self._buffer) == self._p:
-      super().add(v - self._buffer[0])
-    
-    self._buffer.append(v)
-
+      super().add(value - self._buffer[0])
+    self._buffer.append(value)
     if len(self._buffer) > self._p:
       del self._buffer[0]
-    
     return self.v()
+
+
+""
+""
+""
+""
+""
+module.exports = Momentum

@@ -1,54 +1,72 @@
-from bfxhfindicators.indicator import Indicator
+'use strict'
+from lodash/sum import _sum
+from lodash/isFinite import _isFinite
 from bfxhfindicators.sma import SMA
 from bfxhfindicators.stddev import StdDeviation
-
+from bfxhfindicators.indicator import Indicator
 class BollingerBands(Indicator):
-  def __init__(self, args = []):
-    [ period, mul ] = args
-
-    self._p = period
-    self._m = mul
-    self._sma = SMA([period])
-    self._stddev = StdDeviation([period])
-
+    def __init__(self, args = []):
+    [period = 20, mul = 2] = args
     super().__init__({
       'args': args,
       'id': 'bbands',
       'name': 'BBANDS(%f, %f)' % (period, mul),
-      'seed_period': period
+      'seedPeriod': period
     })
+    self._p = period
+    self._m = mul
+    self._ema = SMA([period])
+    self._stddev = StdDeviation([period])
 
-  def reset(self):
+    def unserialize(self, args = []):
+    return BollingerBands(args)
+
+    def reset(self):
     super().reset()
-    self._sma.reset()
-    self._stddev.reset()
+    if self._ema:
+      self._ema.reset()
+    if self._stddev:
+      self._stddev.reset()
 
-  def update(self, v):
-    self._sma.update(v)
-    self._stddev.update(v)
-
-    middle = self._sma.v()
+    def update(self, value):
+    self._ema.update(value)
+    self._stddev.update(value)
+    middle = self._ema.v()
     stddev = self._stddev.v()
-
-    super().update({
+    return super().update({
       'top': middle + (self._m * stddev),
       'middle': middle,
       'bottom': middle - (self._m * stddev)
     })
 
-    return self.v()
-
-  def add(self, v):
-    self._sma.add(v)
-    self._stddev.add(v)
-
-    middle = self._sma.v()
+    def add(self, value):
+    self._ema.add(value)
+    self._stddev.add(value)
+    middle = self._ema.v()
     stddev = self._stddev.v()
-
-    super().add({
+    return super().add({
       'top': middle + (self._m * stddev),
       'middle': middle,
       'bottom': middle - (self._m * stddev)
     })
 
-    return self.v()
+    def ready(self):
+      return _isFinite(self.v() or {}.middle)
+
+    def crossed(self, target):
+      if self.l() < 2:
+        return false
+      v = self.v().middle
+      prev = self.prev().middle
+      return v >= target and prev <= target or v <= target and prev >= target
+
+    def avg(self, n = 2):
+      return _sum(self.nValues(n).map()) / n
+
+
+""
+""
+""
+""
+""
+module.exports = BollingerBands

@@ -1,53 +1,58 @@
+'use strict'
+from lodash/isFinite import _isFinite
 from bfxhfindicators.indicator import Indicator
 from bfxhfindicators.sma import SMA
-from math import isfinite
-
 class Envelope(Indicator):
   def __init__(self, args = []):
-    [ length, percent ] = args
-
-    self._sma = SMA([length])
-    self._p = percent / 100
-
+    [length, percent] = args
     super().__init__({
       'args': args,
       'id': 'env',
       'name': 'Env(%f, %f)' % (length, percent),
-      'seed_period': length,
+      'seedPeriod': length
     })
-  
+    self._sma = SMA([length])
+    self._p = percent / 100
+
+  def unserialize(self, args = []):
+    return Envelope(args)
+
   def reset(self):
     super().reset()
-    self._sma.reset()
+    if self._sma:
+      self._sma.reset()
 
   def update(self, v):
     self._sma.update(v)
     basis = self._sma.v()
-
-    if not isfinite(basis):
+    if not _isFinite(basis):
       return
-    
     delta = basis * self._p
-    super().update({
+    return super().update({
       'upper': basis + delta,
       'basis': basis,
       'lower': basis - delta
     })
-
-    return self.v()
 
   def add(self, v):
     self._sma.add(v)
     basis = self._sma.v()
-
-    if not isfinite(basis):
+    if not _isFinite(basis):
       return
-    
     delta = basis * self._p
-    super().add({
+    return super().add({
       'upper': basis + delta,
       'basis': basis,
       'lower': basis - delta
     })
 
-    return self.v()
+  def ready(self):
+    return _isObject(self.v())
+
+
+""
+""
+""
+""
+""
+module.exports = Envelope

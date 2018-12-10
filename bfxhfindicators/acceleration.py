@@ -1,59 +1,57 @@
+'use strict'
+from lodash/isEmpty import _isEmpty
 from bfxhfindicators.indicator import Indicator
 from bfxhfindicators.roc import ROC
-from math import isfinite
-
 class Acceleration(Indicator):
   def __init__(self, args = []):
-    [ period ] = args
-
-    self._p = period
-    self._roc = ROC([period])
-    self._buffer = []
- 
+    [period] = args
     super().__init__({
       'args': args,
       'id': 'acc',
       'name': 'Acceleration(%f)' % (period),
-      'seed_period': period
+      'seedPeriod': period
     })
+    self._roc = ROC([period])
+    self._p = period
+
+  def unserialize(self, args = []):
+    return Acceleration(args)
 
   def reset(self):
     super().reset()
-
     self._buffer = []
-    self._roc.reset()
+    if self._roc:
+      self._roc.reset()
 
-  def update(self, v):
-    self._roc.update(v)
+  def update(self, value):
+    self._roc.update(value)
     roc = self._roc.v()
-
-    if not isfinite(roc):
+    if roc == None:
       return
-
     if len(self._buffer) == 0:
       self._buffer.append(roc)
     else:
       self._buffer[-1] = roc
-
     if len(self._buffer) < self._p:
       return
-    
-    super().update(roc - self._buffer[0])
-    return self.v()
+    return super().update(roc - self._buffer[0])
 
-  def add(self, v):
-    self._roc.add(v)
+  def add(self, value):
+    self._roc.add(value)
     roc = self._roc.v()
-
-    if not isfinite(roc):
+    if roc == None:
       return
-
     if len(self._buffer) == self._p:
       super().add(roc - self._buffer[0])
-
     self._buffer.append(roc)
-
     if len(self._buffer) > self._p:
       del self._buffer[0]
-
     return self.v()
+
+
+""
+""
+""
+""
+""
+module.exports = Acceleration

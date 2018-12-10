@@ -1,69 +1,77 @@
+'use strict'
+from lodash/max import _max
+from lodash/min import _min
 from bfxhfindicators.indicator import Indicator
 from bfxhfindicators.sma import SMA
-
 class Stochastic(Indicator):
   def __init__(self, args = []):
-    [ period, smoothK, smoothD ] = args
-
-    self._p = period
-    self._buffer = []
-    self._kSMA = SMA([smoothK])
-    self._dSMA = SMA([smoothD])
-
+    [period, smoothK, smoothD] = args
     super().__init__({
       'args': args,
       'id': 'stoch',
       'name': 'Stoch(%f)' % (period),
-      'seed_period': period,
-      'data_type': 'candle',
-      'data_key': '*'
+      'seedPeriod': period,
+      'dataType': 'candle',
+      'dataKey': '*'
     })
-  
+    self._p = period
+    self._kSMA = SMA([smoothK])
+    self._dSMA = SMA([smoothD])
+
+  def unserialize(self, args = []):
+    return Stochastic(args)
+
   def reset(self):
     super().reset()
+    if self._kSMA:
+      self._kSMA.reset()
+    if self._dSMA:
+      self._dSMA.reset()
     self._buffer = []
-    self._kSMA.reset()
-    self._dSMA.reset()
 
   def update(self, candle):
     if len(self._buffer) == 0:
       self._buffer.append(candle)
     else:
       self._buffer[-1] = candle
-
     if len(self._buffer) < self._p:
       return self.v()
-    
-    close = candle['close']
-    lowestLow = min(map(lambda c: c['low'], self._buffer))
-    highestHigh = max(map(lambda c: c['high'], self._buffer))
+    undefined = candle
+    lowestLow = _min(self._buffer.map())
+    highestHigh = _max(self._buffer.map())
     k = 100 * ((close - lowestLow) / (highestHigh - lowestLow))
-
     self._kSMA.update(k)
     self._dSMA.update(self._kSMA.v())
-
-    return super().update({
+    return super().add({
       'k': self._kSMA.v(),
       'd': self._dSMA.v()
     })
 
   def add(self, candle):
     self._buffer.append(candle)
-
     if len(self._buffer) > self._p:
       del self._buffer[0]
-    elif len(self._buffer) < self._p:
+    else:
+      if len(self._buffer) < self._p:
       return self.v()
-
-    close = candle['close']
-    lowestLow = min(map(lambda c: c['low'], self._buffer))
-    highestHigh = max(map(lambda c: c['high'], self._buffer))
+    undefined = candle
+    lowestLow = _min(self._buffer.map())
+    highestHigh = _max(self._buffer.map())
     k = 100 * ((close - lowestLow) / (highestHigh - lowestLow))
-
     self._kSMA.add(k)
     self._dSMA.add(self._kSMA.v())
-
     return super().add({
       'k': self._kSMA.v(),
       'd': self._dSMA.v()
     })
+
+  def ready(self):
+    return _isObject(self.v())
+
+
+""
+""
+""
+""
+""
+module.exports = Stochastic

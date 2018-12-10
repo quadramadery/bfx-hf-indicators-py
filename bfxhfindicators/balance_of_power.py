@@ -1,27 +1,39 @@
+'use strict'
 from bfxhfindicators.indicator import Indicator
-
 class BOP(Indicator):
-  def __init__(self, args = []):
+      def __init__(self, args = []):
     super().__init__({
       'args': args,
       'id': 'bop',
       'name': 'Balance of Power',
-      'seed_period': 0,
-      'data_type': 'candle',
-      'data_key': '*'
+      'seedPeriod': 0,
+      'dataType': 'candle',
+      'dataKey': '*'
     })
 
-  def update(self, c):
-    if c['high'] == c['low']:
-      super().update(1)
-    else:
-      super().update((c['close'] - c['open']) / (c['high'] - c['low']))
-    return self.v()
+      def unserialize(self, args = []):
+    return BOP(args)
 
-  def add(self, c):
-    if c['high'] == c['low']:
-      super().add(1)
-    else:
-      super().add((c['close'] - c['open']) / (c['high'] - c['low']))
-    return self.v()
-   
+      def update(self, candle = {}):
+      undefined = candle
+      if high == low:
+        super().update(1)
+      else:
+        super().update((close - open) / (high - low))
+      return self.v()
+
+      def add(self, candle = {}):
+        undefined = candle
+        if high == low:
+          super().add(1)
+        else:
+          super().add((close - open) / (high - low))
+        return self.v()
+
+
+""
+""
+""
+""
+""
+module.exports = BOP

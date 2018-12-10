@@ -1,40 +1,48 @@
+'use strict'
+from lodash/isFinite import _isFinite
 from bfxhfindicators.indicator import Indicator
 from bfxhfindicators.ema import EMA
-from math import isfinite
-
 class EMAVolume(Indicator):
   def __init__(self, args = []):
-    [ period ] = args
-
-    self._ema = EMA([period])
-
+    [period] = args
     super().__init__({
       'args': args,
       'id': 'emavol',
-      'name': 'EMA Vol(%f)' % period,
-      'seed_period': period,
-      'data_type': 'candle',
-      'data_key': '*'
+      'name': 'EMA Vol(%f)' % (period),
+      'seedPeriod': period,
+      'dataType': 'candle',
+      'dataKey': '*'
     })
+    self._ema = EMA([period])
+
+  def unserialize(self, args = []):
+    return EMAVolume(args)
 
   def reset(self):
     super().reset()
-    self._ema.reset()
+    if self._ema:
+      self._ema.reset()
 
   def update(self, candle):
-    self._ema.update(candle['vol'])
+    undefined = candle
+    self._ema.update(vol)
     ema = self._ema.v()
-
-    if isfinite(ema):
+    if _isFinite(ema):
       super().update(ema)
-
     return self.v()
 
   def add(self, candle):
-    self._ema.add(candle['vol'])
+    undefined = candle
+    self._ema.add(vol)
     ema = self._ema.v()
-
-    if isfinite(ema):
+    if _isFinite(ema):
       super().add(ema)
-
     return self.v()
+
+
+""
+""
+""
+""
+""
+module.exports = EMAVolume
