@@ -1,4 +1,3 @@
-'use strict'
 from lodash/isEmpty import _isEmpty
 from bfxhfindicators.indicator import Indicator
 class ROC(Indicator):
@@ -37,9 +36,4 @@ class ROC(Indicator):
     return self.v()
 
 
-""
-""
-""
-""
-""
 module.exports = ROC

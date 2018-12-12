@@ -1,4 +1,3 @@
-'use strict'
 from bfxhfindicators.indicator import Indicator
 from bfxhfindicators.ema import EMA
 class VO(Indicator):
@@ -46,9 +45,4 @@ class VO(Indicator):
     return super().add(((short - long) / long) * 100)
 
 
-""
-""
-""
-""
-""
 module.exports = VO

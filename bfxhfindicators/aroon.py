@@ -1,4 +1,3 @@
-'use strict'
 from lodash/isEmpty import _isEmpty
 from lodash/max import _max
 from lodash/min import _min
@@ -67,9 +66,4 @@ class Aroon(Indicator):
       }
 
 
-""
-""
-""
-""
-""
 module.exports = Aroon

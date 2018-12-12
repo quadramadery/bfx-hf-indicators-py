@@ -1,4 +1,3 @@
-'use strict'
 from lodash/last import _last
 from bfxhfindicators.indicator import Indicator
 class EMA(Indicator):
@@ -27,9 +26,4 @@ class EMA(Indicator):
       return super().add((self._a * v) + ((1 - self._a) * _last(self._values)))
 
 
-""
-""
-""
-""
-""
 module.exports = EMA

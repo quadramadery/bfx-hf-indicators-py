@@ -1,4 +1,3 @@
-'use strict'
 from bfxhfindicators.sma import SMA
 from bfxhfindicators.indicator import Indicator
 class AO(Indicator):
@@ -39,9 +38,4 @@ class AO(Indicator):
         return super().add(self._smaShort.v() - self._smaLong.v())
 
 
-""
-""
-""
-""
-""
 module.exports = AO

@@ -1,4 +1,3 @@
-'use strict'
 from lodash/isFinite import _isFinite
 from bfxhfindicators.indicator import Indicator
 from bfxhfindicators.ema import EMA
@@ -48,9 +47,4 @@ class TRIX(Indicator):
     return super().add(((curr / prev) - 1) * 10000)
 
 
-""
-""
-""
-""
-""
 module.exports = TRIX

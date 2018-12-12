@@ -1,4 +1,3 @@
-'use strict'
 from lodash/isEmpty import _isEmpty
 from bfxhfindicators.indicator import Indicator
 class Momentum(Indicator):
@@ -37,9 +36,4 @@ class Momentum(Indicator):
     return self.v()
 
 
-""
-""
-""
-""
-""
 module.exports = Momentum

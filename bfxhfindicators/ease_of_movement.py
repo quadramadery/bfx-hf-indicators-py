@@ -1,4 +1,3 @@
-'use strict'
 from bignumber.js import BigN
 from lodash/isFinite import _isFinite
 from bfxhfindicators.indicator import Indicator
@@ -64,9 +63,4 @@ class EOM(Indicator):
     return self.v()
 
 
-""
-""
-""
-""
-""
 module.exports = EOM

@@ -1,4 +1,3 @@
-'use strict'
 from bfxhfindicators.sma import SMA
 from bfxhfindicators.atr import ATR
 from bfxhfindicators.indicator import Indicator
@@ -80,9 +79,4 @@ class ADX(Indicator):
           return self.v()
 
 
-""
-""
-""
-""
-""
 module.exports = ADX

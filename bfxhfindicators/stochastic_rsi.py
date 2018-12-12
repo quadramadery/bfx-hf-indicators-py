@@ -1,4 +1,3 @@
-'use strict'
 from lodash/isFinite import _isFinite
 from lodash/min import _min
 from lodash/max import _max
@@ -91,9 +90,4 @@ class StochasticRSI(Indicator):
     return _isObject(self.v())
 
 
-""
-""
-""
-""
-""
 module.exports = StochasticRSI

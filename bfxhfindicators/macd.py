@@ -1,4 +1,3 @@
-'use strict'
 from bfxhfindicators.indicator import Indicator
 from bfxhfindicators.ema import EMA
 class MACD(Indicator):
@@ -54,9 +53,4 @@ class MACD(Indicator):
     return _isObject(self.v())
 
 
-""
-""
-""
-""
-""
 module.exports = MACD

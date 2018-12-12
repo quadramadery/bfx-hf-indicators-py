@@ -1,4 +1,3 @@
-'use strict'
 from bfxhfindicators.ema import EMA
 from bfxhfindicators.indicator import Indicator
 class PPO(Indicator):
@@ -45,9 +44,4 @@ class PPO(Indicator):
     return super().add(self._signalEMA.v())
 
 
-""
-""
-""
-""
-""
 module.exports = PPO

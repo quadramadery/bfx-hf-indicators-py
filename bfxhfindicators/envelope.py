@@ -1,4 +1,3 @@
-'use strict'
 from lodash/isFinite import _isFinite
 from bfxhfindicators.indicator import Indicator
 from bfxhfindicators.sma import SMA
@@ -50,9 +49,4 @@ class Envelope(Indicator):
     return _isObject(self.v())
 
 
-""
-""
-""
-""
-""
 module.exports = Envelope

@@ -1,4 +1,3 @@
-'use strict'
 from lodash/sum import _sum
 from bfxhfindicators.indicator import Indicator
 class CMF(Indicator):
@@ -55,9 +54,4 @@ class CMF(Indicator):
     return super().add(_sum(self._bufferMFV) / _sum(self._bufferVol))
 
 
-""
-""
-""
-""
-""
 module.exports = CMF

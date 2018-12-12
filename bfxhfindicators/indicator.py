@@ -1,4 +1,3 @@
-'use strict'
 from lodash import undefined
 from sprintf-js import undefined
 class Indicator:

@@ -1,4 +1,3 @@
-'use strict'
 from bfxhfindicators.indicator import Indicator
 class BOP(Indicator):
       def __init__(self, args = []):
@@ -31,9 +30,4 @@ class BOP(Indicator):
         return self.v()
 
 
-""
-""
-""
-""
-""
 module.exports = BOP

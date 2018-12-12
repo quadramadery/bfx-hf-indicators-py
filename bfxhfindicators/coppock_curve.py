@@ -1,4 +1,3 @@
-'use strict'
 from lodash/isFinite import _isFinite
 from bfxhfindicators.indicator import Indicator
 from bfxhfindicators.wma import WMA
@@ -49,9 +48,4 @@ class CoppockCurve(Indicator):
     return super().add(self._wma.v())
 
 
-""
-""
-""
-""
-""
 module.exports = CoppockCurve

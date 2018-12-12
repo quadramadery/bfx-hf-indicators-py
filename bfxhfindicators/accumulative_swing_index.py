@@ -1,4 +1,3 @@
-'use strict'
 from lodash/max import _max
 from bfxhfindicators.indicator import Indicator
 from bignumber.js import BigN
@@ -65,9 +64,4 @@ class AccumulativeSwingIndex(Indicator):
     return self.v()
 
 
-""
-""
-""
-""
-""
 module.exports = AccumulativeSwingIndex

@@ -1,4 +1,3 @@
-'use strict'
 from lodash/sum import _sum
 from bfxhfindicators.indicator import Indicator
 class ATR(Indicator):
@@ -56,9 +55,4 @@ class ATR(Indicator):
       return self.v()
 
 
-""
-""
-""
-""
-""
 module.exports = ATR

@@ -1,4 +1,3 @@
-'use strict'
 from lodash/sum import _sum
 from bfxhfindicators.indicator import Indicator
 from bfxhfindicators.ema import EMA
@@ -50,9 +49,4 @@ class WMA(Indicator):
     return super().add(n / self._d)
 
 
-""
-""
-""
-""
-""
 module.exports = WMA

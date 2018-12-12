@@ -1,4 +1,3 @@
-'use strict'
 from lodash/isEmpty import _isEmpty
 from bignumber.js import BigN
 from bfxhfindicators.indicator import Indicator
@@ -49,9 +48,4 @@ class ALMA(Indicator):
     return super().add(ALMA.calc(self._buffer, self._p, self._offset, self._s))
 
 
-""
-""
-""
-""
-""
 module.exports = ALMA

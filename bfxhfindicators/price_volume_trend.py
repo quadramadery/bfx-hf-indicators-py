@@ -1,4 +1,3 @@
-'use strict'
 from bfxhfindicators.indicator import Indicator
 class PVT(Indicator):
   def __init__(self, args = []):
@@ -39,9 +38,4 @@ class PVT(Indicator):
     return self.v()
 
 
-""
-""
-""
-""
-""
 module.exports = PVT

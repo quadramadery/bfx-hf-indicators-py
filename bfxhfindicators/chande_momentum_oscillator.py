@@ -1,4 +1,3 @@
-'use strict'
 from bignumber.js import BigN
 from lodash/sum import _sum
 from bfxhfindicators.indicator import Indicator
@@ -46,9 +45,4 @@ class ChandeMO(Indicator):
     return super().add(sU - sD.div(sU + sD) * 100.toNumber())
 
 
-""
-""
-""
-""
-""
 module.exports = ChandeMO

@@ -1,4 +1,3 @@
-'use strict'
 from lodash/isFinite import _isFinite
 from bfxhfindicators.indicator import Indicator
 from bfxhfindicators.ema import EMA
@@ -40,9 +39,4 @@ class EMAVolume(Indicator):
     return self.v()
 
 
-""
-""
-""
-""
-""
 module.exports = EMAVolume

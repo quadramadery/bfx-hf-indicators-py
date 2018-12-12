@@ -1,4 +1,3 @@
-'use strict'
 from bfxhfindicators.indicator import Indicator
 class VWAP(Indicator):
   def __init__(self):
@@ -44,9 +43,4 @@ class VWAP(Indicator):
     return super().add(self._totalNum / self._totalDen)
 
 
-""
-""
-""
-""
-""
 module.exports = VWAP

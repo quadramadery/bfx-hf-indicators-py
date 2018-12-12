@@ -1,4 +1,3 @@
-'use strict'
 from bfxhfindicators.indicator import Indicator
 from lodash/min import _min
 from lodash/max import _max
@@ -59,9 +58,4 @@ class PC(Indicator):
     return _isObject(self.v())
 
 
-""
-""
-""
-""
-""
 module.exports = PC

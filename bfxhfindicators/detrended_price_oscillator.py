@@ -1,4 +1,3 @@
-'use strict'
 from bfxhfindicators.indicator import Indicator
 from bfxhfindicators.sma import SMA
 class DPO(Indicator):
@@ -30,9 +29,4 @@ class DPO(Indicator):
     return super().add(v - self._sma.prev(self._pricePeriod))
 
 
-""
-""
-""
-""
-""
 module.exports = DPO

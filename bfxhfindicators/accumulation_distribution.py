@@ -1,4 +1,3 @@
-'use strict'
 from lodash/isFinite import _isFinite
 from bfxhfindicators.indicator import Indicator
 class AccumulationDistribution(Indicator):
@@ -32,9 +31,4 @@ class AccumulationDistribution(Indicator):
     return super().add(prev + moneyFlowVol if _isFinite(prev) else moneyFlowVol)
 
 
-""
-""
-""
-""
-""
 module.exports = AccumulationDistribution

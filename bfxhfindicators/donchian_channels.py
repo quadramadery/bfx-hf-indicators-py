@@ -1,4 +1,3 @@
-'use strict'
 from lodash/max import _max
 from lodash/min import _min
 from bfxhfindicators.indicator import Indicator
@@ -57,9 +56,4 @@ class DC(Indicator):
     return _isObject(self.v())
 
 
-""
-""
-""
-""
-""
 module.exports = DC

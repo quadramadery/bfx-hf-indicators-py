@@ -1,4 +1,3 @@
-'use strict'
 from bfxhfindicators.indicator import Indicator
 class NetVolume(Indicator):
   def __init__(self, args = []):
@@ -29,9 +28,4 @@ class NetVolume(Indicator):
       return super().add(-vol)
 
 
-""
-""
-""
-""
-""
 module.exports = NetVolume

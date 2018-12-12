@@ -1,4 +1,3 @@
-'use strict'
 from lodash/sum import _sum
 from lodash/isEmpty import _isEmpty
 from bfxhfindicators.indicator import Indicator
@@ -36,9 +35,4 @@ class SMA(Indicator):
     return super().add(_sum(self._buffer) / self._p)
 
 
-""
-""
-""
-""
-""
 module.exports = SMA

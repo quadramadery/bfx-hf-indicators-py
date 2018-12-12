@@ -1,4 +1,3 @@
-'use strict'
 from lodash/sum import _sum
 from lodash/isFinite import _isFinite
 from bfxhfindicators.sma import SMA
@@ -64,9 +63,4 @@ class BollingerBands(Indicator):
       return _sum(self.nValues(n).map()) / n
 
 
-""
-""
-""
-""
-""
 module.exports = BollingerBands

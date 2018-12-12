@@ -1,4 +1,3 @@
-'use strict'
 from bignumber.js import BigN
 from lodash/sum import _sum
 from bfxhfindicators.indicator import Indicator
@@ -58,9 +57,4 @@ class VWMA(Indicator):
     return super().add(sum.toNumber())
 
 
-""
-""
-""
-""
-""
 module.exports = VWMA

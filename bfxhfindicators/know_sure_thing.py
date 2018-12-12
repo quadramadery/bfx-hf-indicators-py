@@ -1,4 +1,3 @@
-'use strict'
 from lodash/isObject import _isObject
 from lodash/max import _max
 from bfxhfindicators.indicator import Indicator
@@ -95,9 +94,4 @@ class KST(Indicator):
     return _isObject(self.v())
 
 
-""
-""
-""
-""
-""
 module.exports = KST
