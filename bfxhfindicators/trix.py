@@ -3,7 +3,7 @@ from bfxhfindicators.indicator import Indicator
 from bfxhfindicators.ema import EMA
 class TRIX(Indicator):
   def __init__(self, args = []):
-    [period] = args
+    [ period ] = args
     super().__init__({
       'args': args,
       'id': 'trix',
@@ -47,4 +47,3 @@ class TRIX(Indicator):
     return super().add(((curr / prev) - 1) * 10000)
 
 
-module.exports = TRIX

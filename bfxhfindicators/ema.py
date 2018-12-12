@@ -2,7 +2,7 @@ from lodash/last import _last
 from bfxhfindicators.indicator import Indicator
 class EMA(Indicator):
   def __init__(self, args = []):
-    [period] = args
+    [ period ] = args
     super().__init__({
       'args': args,
       'id': 'ema',
@@ -26,4 +26,3 @@ class EMA(Indicator):
       return super().add((self._a * v) + ((1 - self._a) * _last(self._values)))
 
 
-module.exports = EMA

@@ -3,7 +3,7 @@ from lodash/min import _min
 from bfxhfindicators.indicator import Indicator
 class DC(Indicator):
   def __init__(self, args = []):
-    [period] = args
+    [ period ] = args
     super().__init__({
       'args': args,
       'id': 'dc',
@@ -43,7 +43,7 @@ class DC(Indicator):
       del self._buffer[0]
     else:
       if len(self._buffer) < self._p:
-      return
+        return
     max = _max(self._buffer.map())
     min = _min(self._buffer.map())
     return super().add({
@@ -56,4 +56,3 @@ class DC(Indicator):
     return _isObject(self.v())
 
 
-module.exports = DC

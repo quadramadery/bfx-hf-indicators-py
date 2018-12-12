@@ -2,7 +2,7 @@ from bfxhfindicators.ema import EMA
 from bfxhfindicators.indicator import Indicator
 class PPO(Indicator):
   def __init__(self, args = []):
-    [shortPeriod, longPeriod] = args
+    [ shortPeriod, longPeriod ] = args
     super().__init__({
       'args': args,
       'id': 'ppo',
@@ -44,4 +44,3 @@ class PPO(Indicator):
     return super().add(self._signalEMA.v())
 
 
-module.exports = PPO

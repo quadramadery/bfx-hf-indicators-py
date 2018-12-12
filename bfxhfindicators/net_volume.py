@@ -28,4 +28,3 @@ class NetVolume(Indicator):
       return super().add(-vol)
 
 
-module.exports = NetVolume

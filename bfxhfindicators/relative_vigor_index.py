@@ -3,7 +3,7 @@ from bfxhfindicators.sma import SMA
 from bfxhfindicators.indicator import Indicator
 class RVGI(Indicator):
   def __init__(self, args = []):
-    [period] = args
+    [ period ] = args
     super().__init__({
       'args': args,
       'id': 'rvgi',
@@ -39,8 +39,8 @@ class RVGI(Indicator):
     h = buffer[0].high - buffer[0].low
     den = ((e + (f * 2)) + (g * 2)) + h.div(6)
     return {
-      'num': num.toNumber(),
-      'den': den.toNumber()
+      'num': num,
+      'den': den
     }
 
   def update(self, candle):
@@ -59,7 +59,7 @@ class RVGI(Indicator):
       i = self.v().rvi
       j = self.prev(1).rvi
       k = self.prev(2).rvi
-      signal = ((rvi + (i * 2)) + (j * 2)) + k.div(6).toNumber()
+      signal = ((rvi + (i * 2)) + (j * 2)) + k.div(6)
     return super().update({
       'rvi': rvi,
       'signal': signal
@@ -71,7 +71,7 @@ class RVGI(Indicator):
       del self._buffer[0]
     else:
       if len(self._buffer) < 4:
-      return self.v()
+        return self.v()
     undefined = RVGI.calc(candle, self._buffer)
     self._numeratorSMA.add(num)
     self._denominatorSMA.add(den)
@@ -81,7 +81,7 @@ class RVGI(Indicator):
       i = self.prev(1).rvi
       j = self.prev(2).rvi
       k = self.prev(3).rvi
-      signal = ((rvi + (i * 2)) + (j * 2)) + k.div(6).toNumber()
+      signal = ((rvi + (i * 2)) + (j * 2)) + k.div(6)
     return super().add({
       'rvi': rvi,
       'signal': signal
@@ -91,4 +91,3 @@ class RVGI(Indicator):
     return _isObject(self.v())
 
 
-module.exports = RVGI

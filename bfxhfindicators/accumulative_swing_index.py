@@ -3,7 +3,7 @@ from bfxhfindicators.indicator import Indicator
 from bignumber.js import BigN
 class AccumulativeSwingIndex(Indicator):
   def __init__(self, args = []):
-    [limitMoveValue] = args
+    [ limitMoveValue ] = args
     super().__init__({
       'args': args,
       'id': 'asi',
@@ -35,13 +35,13 @@ class AccumulativeSwingIndex(Indicator):
       er = high - prevClose
     else:
       if prevClose < low:
-      er = prevClose - low
+        er = prevClose - low
     r = tr - ((er * 0.5) + (sh * 0.25))
-    if r.isEqualTo(0):
+    if r == 0:
       return 0
     siNum = ((close - prevClose) + ((close - open) * 0.5)) + ((prevClose - prevOpen) * 0.25)
     si = ((k / lmv) * 50) * (siNum / r)
-    return si.toNumber()
+    return si
 
   def reset(self):
     super().reset()
@@ -64,4 +64,3 @@ class AccumulativeSwingIndex(Indicator):
     return self.v()
 
 
-module.exports = AccumulativeSwingIndex

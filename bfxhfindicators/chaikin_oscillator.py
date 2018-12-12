@@ -4,7 +4,7 @@ from bfxhfindicators.ema import EMA
 from bfxhfindicators.accumulation_distribution import ADL
 class ChaikinOsc(Indicator):
   def __init__(self, args = []):
-    [short, long] = args
+    [ short, long ] = args
     super().__init__({
       'args': args,
       'id': 'chaikinosc',
@@ -56,4 +56,3 @@ class ChaikinOsc(Indicator):
     return self.v()
 
 
-module.exports = ChaikinOsc

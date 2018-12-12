@@ -3,7 +3,7 @@ from bfxhfindicators.indicator import Indicator
 from bfxhfindicators.ema import EMA
 class TSI(Indicator):
   def __init__(self, args = []):
-    [long, short, signal] = args
+    [ long, short, signal ] = args
     super().__init__({
       'args': args,
       'id': 'tsi',
@@ -89,4 +89,3 @@ class TSI(Indicator):
     return _isObject(self.v())
 
 
-module.exports = TSI

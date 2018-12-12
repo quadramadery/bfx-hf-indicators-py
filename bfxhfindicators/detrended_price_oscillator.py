@@ -2,7 +2,7 @@ from bfxhfindicators.indicator import Indicator
 from bfxhfindicators.sma import SMA
 class DPO(Indicator):
   def __init__(self, args = []):
-    [period] = args
+    [ period ] = args
     super().__init__({
       'args': args,
       'id': 'dpo',
@@ -29,4 +29,3 @@ class DPO(Indicator):
     return super().add(v - self._sma.prev(self._pricePeriod))
 
 
-module.exports = DPO

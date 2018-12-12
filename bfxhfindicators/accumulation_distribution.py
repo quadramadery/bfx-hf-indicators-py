@@ -31,4 +31,3 @@ class AccumulationDistribution(Indicator):
     return super().add(prev + moneyFlowVol if _isFinite(prev) else moneyFlowVol)
 
 
-module.exports = AccumulationDistribution

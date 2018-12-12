@@ -3,7 +3,7 @@ from bfxhfindicators.indicator import Indicator
 from bfxhfindicators.ema import EMA
 class MassIndex(Indicator):
   def __init__(self, args = []):
-    [period] = args
+    [ period ] = args
     super().__init__({
       'args': args,
       'id': 'mi',
@@ -49,8 +49,7 @@ class MassIndex(Indicator):
       del self._buffer[0]
     else:
       if len(self._buffer) < self._smoothing:
-      return self.v()
+        return self.v()
     return super().add(_sum(self._buffer))
 
 
-module.exports = MassIndex

@@ -43,4 +43,3 @@ class VWAP(Indicator):
     return super().add(self._totalNum / self._totalDen)
 
 
-module.exports = VWAP

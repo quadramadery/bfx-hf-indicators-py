@@ -3,7 +3,7 @@ from lodash/sum import _sum
 from bfxhfindicators.indicator import Indicator
 class ChandeMO(Indicator):
   def __init__(self, args = []):
-    [period] = args
+    [ period ] = args
     super().__init__({
       'args': args,
       'id': 'chandemo',
@@ -31,7 +31,7 @@ class ChandeMO(Indicator):
       return
     sU = _sum(self._buffer.filter().map())
     sD = _sum(self._buffer.filter().map())
-    return super().update(sU - sD.div(sU + sD) * 100.toNumber())
+    return super().update(sU - sD.div(sU + sD) * 100)
 
   def add(self, candle):
     self._buffer.append(candle)
@@ -39,10 +39,9 @@ class ChandeMO(Indicator):
       del self._buffer[0]
     else:
       if len(self._buffer) < self._p:
-      return
+        return
     sU = _sum(self._buffer.filter().map())
     sD = _sum(self._buffer.filter().map())
-    return super().add(sU - sD.div(sU + sD) * 100.toNumber())
+    return super().add(sU - sD.div(sU + sD) * 100)
 
 
-module.exports = ChandeMO

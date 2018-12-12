@@ -4,7 +4,7 @@ from bfxhfindicators.wma import WMA
 from bfxhfindicators.roc import ROC
 class CoppockCurve(Indicator):
   def __init__(self, args = []):
-    [wmaLength, longROCLength, shortROCLength] = args
+    [ wmaLength, longROCLength, shortROCLength ] = args
     super().__init__({
       'args': args,
       'id': 'coppockcurve',
@@ -48,4 +48,3 @@ class CoppockCurve(Indicator):
     return super().add(self._wma.v())
 
 
-module.exports = CoppockCurve

@@ -3,7 +3,7 @@ from lodash/min import _min
 from bfxhfindicators.indicator import Indicator
 class WilliamsR(Indicator):
   def __init__(self, args = []):
-    [period] = args
+    [ period ] = args
     super().__init__({
       'args': args,
       'id': 'wir',
@@ -40,11 +40,10 @@ class WilliamsR(Indicator):
       del self._buffer[0]
     else:
       if len(self._buffer) < self._p:
-      return self.v()
+        return self.v()
     undefined = candle
     high = _max(self._buffer.map())
     low = _min(self._buffer.map())
     return super().add(((high - close) / (high - low)) * -100)
 
 
-module.exports = WilliamsR

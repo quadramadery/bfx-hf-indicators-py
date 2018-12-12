@@ -3,7 +3,7 @@ from lodash/min import _min
 from lodash/max import _max
 class PC(Indicator):
   def __init__(self, args = []):
-    [period, offset] = args
+    [ period, offset ] = args
     super().__init__({
       'args': args,
       'id': 'pc',
@@ -45,7 +45,7 @@ class PC(Indicator):
       del self._buffer[0]
     else:
       if len(self._buffer) < self._l:
-      return self.v()
+        return self.v()
     upper = _max(self._buffer.slice(0, self._p).map())
     lower = _min(self._buffer.slice(0, self._p).map())
     return super().add({
@@ -58,4 +58,3 @@ class PC(Indicator):
     return _isObject(self.v())
 
 
-module.exports = PC

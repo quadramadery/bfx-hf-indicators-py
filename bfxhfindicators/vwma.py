@@ -3,7 +3,7 @@ from lodash/sum import _sum
 from bfxhfindicators.indicator import Indicator
 class VWMA(Indicator):
   def __init__(self, args = []):
-    [period] = args
+    [ period ] = args
     super().__init__({
       'args': args,
       'id': 'vwma',
@@ -33,11 +33,11 @@ class VWMA(Indicator):
     volSum = 0
     sum = 0
     for i in range(0, len(self._buffer)):
-      volSum = volSum + self._buffer.i.vol
+      volSum = volSum + self._buffer[i].vol
     for i in range(0, len(self._buffer)):
-      c = self._buffer.i
+      c = self._buffer[i]
       sum = sum + (c.close * c.vol.div(volSum))
-    return super().update(sum.toNumber())
+    return super().update(sum)
 
   def add(self, candle):
     self._buffer.append(candle)
@@ -45,16 +45,15 @@ class VWMA(Indicator):
       del self._buffer[0]
     else:
       if len(self._buffer) < self._p:
-      return self.v()
+        return self.v()
     
     volSum = 0
     sum = 0
     for i in range(0, len(self._buffer)):
-      volSum = volSum + self._buffer.i.vol
+      volSum = volSum + self._buffer[i].vol
     for i in range(0, len(self._buffer)):
-      c = self._buffer.i
+      c = self._buffer[i]
       sum = sum + (c.close * c.vol.div(volSum))
-    return super().add(sum.toNumber())
+    return super().add(sum)
 
 
-module.exports = VWMA

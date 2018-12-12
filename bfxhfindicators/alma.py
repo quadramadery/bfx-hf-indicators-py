@@ -3,7 +3,7 @@ from bignumber.js import BigN
 from bfxhfindicators.indicator import Indicator
 class ALMA(Indicator):
   def __init__(self, args = []):
-    [period, offset, sigma] = args
+    [ period, offset, sigma ] = args
     super().__init__({
       'args': args,
       'id': 'alma',
@@ -24,7 +24,7 @@ class ALMA(Indicator):
     sum = 0
     for i in range(0, period):
       ex = Math.exp(-1 * (Math.pow(i - m, 2) / (2 * Math.pow(s, 2))))
-      windowSum += ex * buffer.i
+      windowSum += ex * buffer[i]
       sum += ex
     return windowSum / sum
 
@@ -48,4 +48,3 @@ class ALMA(Indicator):
     return super().add(ALMA.calc(self._buffer, self._p, self._offset, self._s))
 
 
-module.exports = ALMA

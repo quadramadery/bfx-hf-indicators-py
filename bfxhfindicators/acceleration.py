@@ -3,7 +3,7 @@ from bfxhfindicators.indicator import Indicator
 from bfxhfindicators.roc import ROC
 class Acceleration(Indicator):
   def __init__(self, args = []):
-    [period] = args
+    [ period ] = args
     super().__init__({
       'args': args,
       'id': 'acc',
@@ -48,4 +48,3 @@ class Acceleration(Indicator):
     return self.v()
 
 
-module.exports = Acceleration

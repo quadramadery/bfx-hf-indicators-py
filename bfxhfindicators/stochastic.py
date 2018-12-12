@@ -4,7 +4,7 @@ from bfxhfindicators.indicator import Indicator
 from bfxhfindicators.sma import SMA
 class Stochastic(Indicator):
   def __init__(self, args = []):
-    [period, smoothK, smoothD] = args
+    [ period, smoothK, smoothD ] = args
     super().__init__({
       'args': args,
       'id': 'stoch',
@@ -52,7 +52,7 @@ class Stochastic(Indicator):
       del self._buffer[0]
     else:
       if len(self._buffer) < self._p:
-      return self.v()
+        return self.v()
     undefined = candle
     lowestLow = _min(self._buffer.map())
     highestHigh = _max(self._buffer.map())
@@ -68,4 +68,3 @@ class Stochastic(Indicator):
     return _isObject(self.v())
 
 
-module.exports = Stochastic

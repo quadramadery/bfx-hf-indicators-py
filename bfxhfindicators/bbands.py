@@ -4,8 +4,8 @@ from bfxhfindicators.sma import SMA
 from bfxhfindicators.stddev import StdDeviation
 from bfxhfindicators.indicator import Indicator
 class BollingerBands(Indicator):
-    def __init__(self, args = []):
-    [period = 20, mul = 2] = args
+  def __init__(self, args = []):
+    [ period = 20, mul = 2 ] = args
     super().__init__({
       'args': args,
       'id': 'bbands',
@@ -17,17 +17,17 @@ class BollingerBands(Indicator):
     self._ema = SMA([period])
     self._stddev = StdDeviation([period])
 
-    def unserialize(self, args = []):
+  def unserialize(self, args = []):
     return BollingerBands(args)
 
-    def reset(self):
+  def reset(self):
     super().reset()
     if self._ema:
       self._ema.reset()
     if self._stddev:
       self._stddev.reset()
 
-    def update(self, value):
+  def update(self, value):
     self._ema.update(value)
     self._stddev.update(value)
     middle = self._ema.v()
@@ -38,7 +38,7 @@ class BollingerBands(Indicator):
       'bottom': middle - (self._m * stddev)
     })
 
-    def add(self, value):
+  def add(self, value):
     self._ema.add(value)
     self._stddev.add(value)
     middle = self._ema.v()
@@ -49,18 +49,17 @@ class BollingerBands(Indicator):
       'bottom': middle - (self._m * stddev)
     })
 
-    def ready(self):
-      return _isFinite(self.v() or {}.middle)
+  def ready(self):
+    return _isFinite(self.v() or {}.middle)
 
-    def crossed(self, target):
-      if self.l() < 2:
-        return false
-      v = self.v().middle
-      prev = self.prev().middle
-      return v >= target and prev <= target or v <= target and prev >= target
+  def crossed(self, target):
+    if self.l() < 2:
+      return false
+    v = self.v().middle
+    prev = self.prev().middle
+    return v >= target and prev <= target or v <= target and prev >= target
 
-    def avg(self, n = 2):
-      return _sum(self.nValues(n).map()) / n
+  def avg(self, n = 2):
+    return _sum(self.nValues(n).map()) / n
 
 
-module.exports = BollingerBands

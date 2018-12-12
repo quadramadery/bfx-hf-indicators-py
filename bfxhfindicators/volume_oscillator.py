@@ -2,7 +2,7 @@ from bfxhfindicators.indicator import Indicator
 from bfxhfindicators.ema import EMA
 class VO(Indicator):
   def __init__(self, args = []):
-    [shortPeriod, longPeriod] = args
+    [ shortPeriod, longPeriod ] = args
     super().__init__({
       'args': args,
       'id': 'vo',
@@ -45,4 +45,3 @@ class VO(Indicator):
     return super().add(((short - long) / long) * 100)
 
 
-module.exports = VO

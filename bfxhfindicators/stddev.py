@@ -3,7 +3,7 @@ from lodash/sum import _sum
 from bfxhfindicators.indicator import Indicator
 class StdDeviation(Indicator):
   def __init__(self, args = []):
-    [period] = args
+    [ period ] = args
     super().__init__({
       'args': args,
       'id': 'stddev',
@@ -45,4 +45,3 @@ class StdDeviation(Indicator):
     return self.v()
 
 
-module.exports = StdDeviation

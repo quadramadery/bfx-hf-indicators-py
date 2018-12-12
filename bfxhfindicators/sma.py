@@ -3,7 +3,7 @@ from lodash/isEmpty import _isEmpty
 from bfxhfindicators.indicator import Indicator
 class SMA(Indicator):
   def __init__(self, args = []):
-    [period] = args
+    [ period ] = args
     super().__init__({
       'args': args,
       'id': 'sma',
@@ -35,4 +35,3 @@ class SMA(Indicator):
     return super().add(_sum(self._buffer) / self._p)
 
 
-module.exports = SMA

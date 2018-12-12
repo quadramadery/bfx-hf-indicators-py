@@ -3,7 +3,7 @@ from bfxhfindicators.indicator import Indicator
 from bfxhfindicators.ema import EMA
 class RSI(Indicator):
   def __init__(self, args = []):
-    [period] = args
+    [ period ] = args
     super().__init__({
       'args': args,
       'id': 'rsi',
@@ -62,4 +62,3 @@ class RSI(Indicator):
     return self.v()
 
 
-module.exports = RSI

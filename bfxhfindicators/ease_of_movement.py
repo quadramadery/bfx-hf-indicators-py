@@ -4,7 +4,7 @@ from bfxhfindicators.indicator import Indicator
 from bfxhfindicators.sma import SMA
 class EOM(Indicator):
   def __init__(self, args = []):
-    [divisor, length] = args
+    [ divisor, length ] = args
     super().__init__({
       'args': args,
       'id': 'eom',
@@ -37,7 +37,7 @@ class EOM(Indicator):
     moved = high + low.div(2) - lastHigh + lastLow.div(2)
     boxRatio = vol.div(self._d).div(high - low)
     eom = moved.div(boxRatio)
-    self._sma.update(eom.toNumber())
+    self._sma.update(eom)
     v = self._sma.v()
     if _isFinite(v):
       super().update(v)
@@ -55,7 +55,7 @@ class EOM(Indicator):
     moved = high + low.div(2) - lastHigh + lastLow.div(2)
     boxRatio = 1 if candle.high == candle.low else vol.div(self._d).div(high - low)
     eom = moved.div(boxRatio)
-    self._sma.add(eom.toNumber())
+    self._sma.add(eom)
     v = self._sma.v()
     if _isFinite(v):
       super().add(v)
@@ -63,4 +63,3 @@ class EOM(Indicator):
     return self.v()
 
 
-module.exports = EOM

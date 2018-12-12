@@ -3,7 +3,7 @@ from bfxhfindicators.indicator import Indicator
 from bfxhfindicators.ema import EMA
 class EMAVolume(Indicator):
   def __init__(self, args = []):
-    [period] = args
+    [ period ] = args
     super().__init__({
       'args': args,
       'id': 'emavol',
@@ -39,4 +39,3 @@ class EMAVolume(Indicator):
     return self.v()
 
 
-module.exports = EMAVolume

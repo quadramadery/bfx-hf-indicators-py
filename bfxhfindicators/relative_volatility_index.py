@@ -4,7 +4,7 @@ from bfxhfindicators.ema import EMA
 from bfxhfindicators.stddev import StdDev
 class RVI(Indicator):
   def __init__(self, args = []):
-    [period] = args
+    [ period ] = args
     super().__init__({
       'args': args,
       'id': 'rvi',
@@ -37,21 +37,21 @@ class RVI(Indicator):
       }
     else:
       if candlePrice > self._prevInputValue:
-      return {
-        'u': stddev,
-        'd': 0
-      }
-    else:
-      if candlePrice < self._prevInputValue:
-      return {
-        'u': 0,
-        'd': stddev
-      }
-    else:
-      return {
-        'u': 0,
-        'd': 0
-      }
+        return {
+          'u': stddev,
+          'd': 0
+        }
+      else:
+        if candlePrice < self._prevInputValue:
+          return {
+            'u': 0,
+            'd': stddev
+          }
+        else:
+          return {
+            'u': 0,
+            'd': 0
+          }
 
   def update(self, value):
     if self._prevInputValue == None:
@@ -91,4 +91,3 @@ class RVI(Indicator):
     return self.v()
 
 
-module.exports = RVI

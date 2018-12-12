@@ -6,7 +6,7 @@ from bfxhfindicators.sma import SMA
 from bfxhfindicators.rsi import RSI
 class StochasticRSI(Indicator):
   def __init__(self, args = []):
-    [lengthRSI, lengthStochastic, smoothStoch, smoothSignal] = args
+    [ lengthRSI, lengthStochastic, smoothStoch, smoothSignal ] = args
     super().__init__({
       'args': args,
       'id': 'stochrsi',
@@ -69,7 +69,7 @@ class StochasticRSI(Indicator):
       del self._buffer[0]
     else:
       if len(self._buffer) < self._l:
-      return self.v()
+        return self.v()
     low = _min(self._buffer)
     high = _max(self._buffer)
     stoch = 1 if high == low else (rsi - low) / (high - low)
@@ -90,4 +90,3 @@ class StochasticRSI(Indicator):
     return _isObject(self.v())
 
 
-module.exports = StochasticRSI

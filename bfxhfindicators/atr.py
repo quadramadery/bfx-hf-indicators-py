@@ -1,8 +1,8 @@
 from lodash/sum import _sum
 from bfxhfindicators.indicator import Indicator
 class ATR(Indicator):
-    def __init__(self, args = []):
-    [period] = args
+  def __init__(self, args = []):
+    [ period ] = args
     super().__init__({
       'args': args,
       'id': 'atr',
@@ -14,45 +14,44 @@ class ATR(Indicator):
     self._p = period
     self._prevCandle = None
 
-    def unserialize(self, args = []):
+  def unserialize(self, args = []):
     return ATR(args)
 
-    def seed(self, candles = []):
+  def seed(self, candles = []):
     return _sum(candles.map()) / len(candles)
 
-    def calc(self, prevATR, p, prevCandle, candle):
+  def calc(self, prevATR, p, prevCandle, candle):
     return ((prevATR * (p - 1)) + ATR.tr(prevCandle, candle)) / p
 
-    def tr(self, prevCandle, candle = {}):
-      return Math.max(prevCandle.high - prevCandle.low if prevCandle else 0, Math.abs(candle.high - prevCandle.close) if prevCandle else 0, Math.abs(candle.low - prevCandle.close) if prevCandle else 0)
+  def tr(self, prevCandle, candle = {}):
+    return Math.max(prevCandle.high - prevCandle.low if prevCandle else 0, Math.abs(candle.high - prevCandle.close) if prevCandle else 0, Math.abs(candle.low - prevCandle.close) if prevCandle else 0)
 
-    def reset(self):
-      super().reset()
-      self._buffer = []
-      self._prevCandle = None
+  def reset(self):
+    super().reset()
+    self._buffer = []
+    self._prevCandle = None
 
-    def update(self, candle):
-      if self.l() == 0:
-        if len(self._buffer) < self._p:
-          self._buffer.append(candle)
-        else:
-          self._buffer[-1] = candle
-        if len(self._buffer) == self._p:
-          super().update(ATR.seed(self._buffer))
+  def update(self, candle):
+    if self.l() == 0:
+      if len(self._buffer) < self._p:
+        self._buffer.append(candle)
       else:
-        super().update(ATR.calc(self.prev(), self._p, self._prevCandle, candle))
-      return self.v()
+        self._buffer[-1] = candle
+      if len(self._buffer) == self._p:
+        super().update(ATR.seed(self._buffer))
+    else:
+      super().update(ATR.calc(self.prev(), self._p, self._prevCandle, candle))
+    return self.v()
 
-    def add(self, candle):
-      if self.l() == 0:
-        if len(self._buffer) < self._p:
-          self._buffer.append(candle)
-        if len(self._buffer) == self._p:
-          super().add(ATR.seed(self._buffer))
-      else:
-        super().add(ATR.calc(self.v(), self._p, self._prevCandle, candle))
-      self._prevCandle = candle
-      return self.v()
+  def add(self, candle):
+    if self.l() == 0:
+      if len(self._buffer) < self._p:
+        self._buffer.append(candle)
+      if len(self._buffer) == self._p:
+        super().add(ATR.seed(self._buffer))
+    else:
+      super().add(ATR.calc(self.v(), self._p, self._prevCandle, candle))
+    self._prevCandle = candle
+    return self.v()
 
 
-module.exports = ATR

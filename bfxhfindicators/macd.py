@@ -2,7 +2,7 @@ from bfxhfindicators.indicator import Indicator
 from bfxhfindicators.ema import EMA
 class MACD(Indicator):
   def __init__(self, args = []):
-    [fastMA, slowMA, signalMA] = args
+    [ fastMA, slowMA, signalMA ] = args
     super().__init__({
       'args': args,
       'id': 'macd',
@@ -53,4 +53,3 @@ class MACD(Indicator):
     return _isObject(self.v())
 
 
-module.exports = MACD

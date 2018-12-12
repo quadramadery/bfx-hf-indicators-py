@@ -5,7 +5,7 @@ from bfxhfindicators.roc import ROC
 from bfxhfindicators.sma import SMA
 class KST(Indicator):
   def __init__(self, args = []):
-    [rocA, rocB, rocC, rocD, smaA, smaB, smaC, smaD, smaSignal] = args
+    [ rocA, rocB, rocC, rocD, smaA, smaB, smaC, smaD, smaSignal ] = args
     super().__init__({
       'args': args,
       'id': 'kst',
@@ -94,4 +94,3 @@ class KST(Indicator):
     return _isObject(self.v())
 
 
-module.exports = KST

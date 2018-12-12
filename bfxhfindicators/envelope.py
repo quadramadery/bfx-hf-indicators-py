@@ -3,7 +3,7 @@ from bfxhfindicators.indicator import Indicator
 from bfxhfindicators.sma import SMA
 class Envelope(Indicator):
   def __init__(self, args = []):
-    [length, percent] = args
+    [ length, percent ] = args
     super().__init__({
       'args': args,
       'id': 'env',
@@ -49,4 +49,3 @@ class Envelope(Indicator):
     return _isObject(self.v())
 
 
-module.exports = Envelope

@@ -3,7 +3,7 @@ from bfxhfindicators.indicator import Indicator
 from bfxhfindicators.ema import EMA
 class WMA(Indicator):
   def __init__(self, args = []):
-    [period] = args
+    [ period ] = args
     super().__init__({
       'args': args,
       'id': 'wma',
@@ -33,7 +33,7 @@ class WMA(Indicator):
       return self.v()
     n = 0
     for i in range(1, self._p):
-      n += self._buffer.-i * (self._p - (i - 1))
+      n += self._buffer[-i] * (self._p - (i - 1))
     return super().update(n / self._d)
 
   def add(self, v):
@@ -42,11 +42,10 @@ class WMA(Indicator):
       del self._buffer[0]
     else:
       if len(self._buffer) < self._p:
-      return self.v()
+        return self.v()
     n = 0
     for i in range(1, self._p):
-      n += self._buffer.-i * (self._p - (i - 1))
+      n += self._buffer[-i] * (self._p - (i - 1))
     return super().add(n / self._d)
 
 
-module.exports = WMA

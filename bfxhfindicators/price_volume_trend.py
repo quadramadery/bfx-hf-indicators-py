@@ -38,4 +38,3 @@ class PVT(Indicator):
     return self.v()
 
 
-module.exports = PVT
