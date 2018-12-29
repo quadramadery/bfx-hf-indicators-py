@@ -23,7 +23,7 @@ class EMAVolume(Indicator):
       self._ema.reset()
 
   def update(self, candle):
-    undefined = candle
+    vol = candle.vol
     self._ema.update(vol)
     ema = self._ema.v()
     if _isFinite(ema):
@@ -31,7 +31,7 @@ class EMAVolume(Indicator):
     return self.v()
 
   def add(self, candle):
-    undefined = candle
+    vol = candle.vol
     self._ema.add(vol)
     ema = self._ema.v()
     if _isFinite(ema):

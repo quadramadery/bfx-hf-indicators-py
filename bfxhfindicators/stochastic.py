@@ -35,7 +35,7 @@ class Stochastic(Indicator):
       self._buffer[-1] = candle
     if len(self._buffer) < self._p:
       return self.v()
-    undefined = candle
+    close = candle.close
     lowestLow = _min(self._buffer.map())
     highestHigh = _max(self._buffer.map())
     k = 100 * ((close - lowestLow) / (highestHigh - lowestLow))
@@ -53,7 +53,7 @@ class Stochastic(Indicator):
     else:
       if len(self._buffer) < self._p:
         return self.v()
-    undefined = candle
+    close = candle.close
     lowestLow = _min(self._buffer.map())
     highestHigh = _max(self._buffer.map())
     k = 100 * ((close - lowestLow) / (highestHigh - lowestLow))

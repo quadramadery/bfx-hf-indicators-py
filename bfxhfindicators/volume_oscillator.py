@@ -25,7 +25,7 @@ class VO(Indicator):
       self._longSMA.reset()
 
   def update(self, candle):
-    undefined = candle
+    vol = candle.vol
     self._shortEMA.update(vol)
     self._longEMA.update(vol)
     short = self._shortEMA.v()
@@ -35,7 +35,7 @@ class VO(Indicator):
     return super().update(((short - long) / long) * 100)
 
   def add(self, candle):
-    undefined = candle
+    vol = candle.vol
     self._shortEMA.add(vol)
     self._longEMA.add(vol)
     short = self._shortEMA.v()

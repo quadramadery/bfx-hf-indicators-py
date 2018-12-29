@@ -1,5 +1,5 @@
 from lodash import undefined
-from sprintf-js import undefined
+sprintf = require('sprintf-js').sprintf
 class Indicator:
   def __init__(self, undefined = {}):
     if not isString(id):
