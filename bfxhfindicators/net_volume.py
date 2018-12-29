@@ -14,17 +14,15 @@ class NetVolume(Indicator):
     return NetVolume(args)
 
   def update(self, candle):
-    undefined = candle
-    if close >= open:
-      return super().update(vol)
+    if candle.close >= candle.open:
+      return super().update(candle.vol)
     else:
-      return super().update(-vol)
+      return super().update(-candle.vol)
 
   def add(self, candle):
-    undefined = candle
-    if close >= open:
-      return super().add(vol)
+    if candle.close >= candle.open:
+      return super().add(candle.vol)
     else:
-      return super().add(-vol)
+      return super().add(-candle.vol)
 
 

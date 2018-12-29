@@ -25,21 +25,19 @@ class VWAP(Indicator):
     self._lastDen = 0
 
   def update(self, candle):
-    undefined = candle
-    typ = ((high + low) + close) / 3
+    typ = ((candle.high + candle.low) + candle.close) / 3
     self._totalDen = self._lastDen
     self._totalNum = self._lastNum
-    self._totalNum += typ * vol
-    self._totalDen += vol
+    self._totalNum += typ * candle.vol
+    self._totalDen += candle.vol
     return super().update(self._totalNum / self._totalDen)
 
   def add(self, candle):
-    undefined = candle
-    typ = ((high + low) + close) / 3
+    typ = ((candle.high + candle.low) + candle.close) / 3
     self._lastNum = self._totalNum
     self._lastDen = self._totalDen
-    self._totalNum += typ * vol
-    self._totalDen += vol
+    self._totalNum += typ * candle.vol
+    self._totalDen += candle.vol
     return super().add(self._totalNum / self._totalDen)
 
 

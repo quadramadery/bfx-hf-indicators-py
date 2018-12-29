@@ -24,15 +24,13 @@ class AO(Indicator):
       self._smaLong.reset()
 
   def update(self, candle = {}):
-    undefined = candle
-    v = (high + low) / 2
+    v = (candle.high + candle.low) / 2
     self._smaShort.update(v)
     self._smaLong.update(v)
     return super().update(self._smaShort.v() - self._smaLong.v())
 
   def add(self, candle = {}):
-    undefined = candle
-    v = (high + low) / 2
+    v = (candle.high + candle.low) / 2
     self._smaShort.add(v)
     self._smaLong.add(v)
     return super().add(self._smaShort.v() - self._smaLong.v())

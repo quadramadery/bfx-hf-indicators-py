@@ -1,8 +1,7 @@
-from lodash import undefined
 sprintf = require('sprintf-js').sprintf
 class Indicator:
   def __init__(self, undefined = {}):
-    if not isString(id):
+    if not require('lodash').isString(id):
       
     self._name = name
     self._seedPeriod = seedPeriod
@@ -25,7 +24,7 @@ class Indicator:
     return self._dataKey
 
   def update(self, v):
-    if isEmpty(self._values):
+    if require('lodash').isEmpty(self._values):
       return self.add(v)
     self._values[-1] = v
     return v
@@ -41,7 +40,7 @@ class Indicator:
     return self._values[-n + 1]
 
   def v(self):
-    return last(self._values)
+    return require('lodash').last(self._values)
 
   def l(self):
     return len(self._values)
@@ -50,7 +49,7 @@ class Indicator:
     return self._values.slice(len(self._values) - n)
 
   def avg(self, n = 2):
-    return sum(self.nValues(n)) / n
+    return require('lodash').sum(self.nValues(n)) / n
 
   def crossed(self, target):
     if self.l() < 2:
@@ -61,10 +60,10 @@ class Indicator:
 
   def logStr(self, mts):
     v = self.v()
-    return sprintf('%s %.2f', self._name, v if isFinite(v) else NaN)
+    return sprintf('%s %.2f', self._name, v if require('lodash').isFinite(v) else NaN)
 
   def ready(self):
-    return isFinite(self.v())
+    return require('lodash').isFinite(self.v())
 
   def serialize(self):
     return {

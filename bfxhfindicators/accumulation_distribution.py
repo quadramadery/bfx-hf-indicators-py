@@ -17,16 +17,14 @@ class AccumulationDistribution(Indicator):
     super().reset()
 
   def update(self, candle):
-    undefined = candle
-    moneyFlowMult = 0 if high == low else ((close - low) - (high - close)) / (high - low)
-    moneyFlowVol = moneyFlowMult * vol
+    moneyFlowMult = 0 if candle.high == candle.low else ((candle.close - candle.low) - (candle.high - candle.close)) / (candle.high - candle.low)
+    moneyFlowVol = moneyFlowMult * candle.vol
     prev = self.prev()
     return super().update(prev + moneyFlowVol if _isFinite(prev) else moneyFlowVol)
 
   def add(self, candle):
-    undefined = candle
-    moneyFlowMult = 0 if high == low else ((close - low) - (high - close)) / (high - low)
-    moneyFlowVol = moneyFlowMult * vol
+    moneyFlowMult = 0 if candle.high == candle.low else ((candle.close - candle.low) - (candle.high - candle.close)) / (candle.high - candle.low)
+    moneyFlowVol = moneyFlowMult * candle.vol
     prev = self.v()
     return super().add(prev + moneyFlowVol if _isFinite(prev) else moneyFlowVol)
 

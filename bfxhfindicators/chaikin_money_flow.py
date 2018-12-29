@@ -24,15 +24,14 @@ class CMF(Indicator):
     self._bufferMFV = []
 
   def update(self, candle):
-    undefined = candle
-    mf = 0 if high == low else ((close - low) - (high - close)) / (high - low)
-    mfv = mf * vol
+    mf = 0 if candle.high == candle.low else ((candle.close - candle.low) - (candle.high - candle.close)) / (candle.high - candle.low)
+    mfv = mf * candle.vol
     if len(self._bufferVol) == 0:
-      self._bufferVol.append(vol)
+      self._bufferVol.append(candle.vol)
     else:
-      self._bufferVol[-1] = vol
+      self._bufferVol[-1] = candle.vol
     if len(self._bufferMFV) == 0:
-      self._bufferMFV.append(vol)
+      self._bufferMFV.append(candle.vol)
     else:
       self._bufferMFV[-1] = mfv
     if len(self._bufferMFV) < self._p or len(self._bufferVol) < self._p:
@@ -40,10 +39,9 @@ class CMF(Indicator):
     return super().update(_sum(self._bufferMFV) / _sum(self._bufferVol))
 
   def add(self, candle):
-    undefined = candle
-    mf = 0 if high == low else ((close - low) - (high - close)) / (high - low)
-    mfv = mf * vol
-    self._bufferVol.append(vol)
+    mf = 0 if candle.high == candle.low else ((candle.close - candle.low) - (candle.high - candle.close)) / (candle.high - candle.low)
+    mfv = mf * candle.vol
+    self._bufferVol.append(candle.vol)
     self._bufferMFV.append(mfv)
     if len(self._bufferVol) > self._p:
       del self._bufferVol[0]

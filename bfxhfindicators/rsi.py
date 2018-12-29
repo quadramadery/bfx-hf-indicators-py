@@ -29,8 +29,8 @@ class RSI(Indicator):
   def _ud(self, value):
     delta = 0 if self._prevInputValue == None else value - self._prevInputValue
     return {
-      'u': delta if delta > 0 else 0,
-      'd': delta * -1 if delta < 0 else 0
+      'self._ud(value).u': delta if delta > 0 else 0,
+      'self._ud(value).d': delta * -1 if delta < 0 else 0
     }
 
   def _rs(self):
@@ -41,9 +41,8 @@ class RSI(Indicator):
   def update(self, value):
     if self._prevInputValue == None:
       return self.v()
-    undefined = self._ud(value)
-    self._uEMA.update(u)
-    self._dEMA.update(d)
+    self._uEMA.update(self._ud(value).u)
+    self._dEMA.update(self._ud(value).d)
     rs = self._rs()
     if _isFinite(rs):
       super().update(100 - (100 / (1 + rs)))
@@ -52,9 +51,8 @@ class RSI(Indicator):
   def add(self, value):
     if self._prevInputValue == None:
       self._prevInputValue = value
-    undefined = self._ud(value)
-    self._uEMA.add(u)
-    self._dEMA.add(d)
+    self._uEMA.add(self._ud(value).u)
+    self._dEMA.add(self._ud(value).d)
     rs = self._rs()
     if _isFinite(rs):
       super().add(100 - (100 / (1 + rs)))

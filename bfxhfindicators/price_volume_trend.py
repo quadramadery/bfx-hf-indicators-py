@@ -21,8 +21,7 @@ class PVT(Indicator):
   def update(self, candle):
     if self._lastCandle == None:
       return self.v()
-    undefined = candle
-    pvt = ((close - self._lastCandle.close) / self._lastCandle.close) * vol
+    pvt = ((candle.close - self._lastCandle.candle.close) / self._lastCandle.candle.close) * candle.vol
     v = self.prev() if self.l() > 1 else 0
     return super().update(pvt + v)
 
@@ -30,8 +29,7 @@ class PVT(Indicator):
     if self._lastCandle == None:
       self._lastCandle = candle
       return self.v()
-    undefined = candle
-    pvt = ((close - self._lastCandle.close) / self._lastCandle.close) * vol
+    pvt = ((candle.close - self._lastCandle.candle.close) / self._lastCandle.candle.close) * candle.vol
     v = self.v() if self.l() > 0 else 0
     super().add(pvt + v)
     self._lastCandle = candle

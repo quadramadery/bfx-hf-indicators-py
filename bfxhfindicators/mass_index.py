@@ -29,8 +29,7 @@ class MassIndex(Indicator):
       self._doubleEMA.reset()
 
   def update(self, candle):
-    undefined = candle
-    self._singleEMA.update(high - low)
+    self._singleEMA.update(candle.high - candle.low)
     self._doubleEMA.update(self._singleEMA.v())
     if len(self._buffer) == 0:
       self._buffer.append(self._singleEMA.v() / self._doubleEMA.v())
@@ -41,8 +40,7 @@ class MassIndex(Indicator):
     return super().update(_sum(self._buffer))
 
   def add(self, candle):
-    undefined = candle
-    self._singleEMA.add(high - low)
+    self._singleEMA.add(candle.high - candle.low)
     self._doubleEMA.add(self._singleEMA.v())
     self._buffer.append(self._singleEMA.v() / self._doubleEMA.v())
     if len(self._buffer) > self._smoothing:

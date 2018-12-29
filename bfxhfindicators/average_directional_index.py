@@ -36,31 +36,29 @@ class ADX(Indicator):
   def calcUpdate(self, candle = {}, lastCandle = {}, indicators = {}, type):
     if type !== 'add' and type !== 'update':
       
-    undefined = indicators
-    undefined = candle
-    upMove = high - lastCandle.high
-    downMove = lastCandle.low - low
+    upMove = candle.high - lastCandle.candle.high
+    downMove = lastCandle.candle.low - candle.low
     dmUp = upMove if upMove > downMove and upMove > 0 else 0
     dmDown = downMove if downMove > upMove and downMove > 0 else 0
-    atr[type](candle)
-    upSMA[type](dmUp)
-    downSMA[type](dmDown)
-    atrV = atr.v()
+    indicators.atr[type](candle)
+    indicators.upSMA[type](dmUp)
+    indicators.downSMA[type](dmDown)
+    atrV = indicators.atr.v()
     if atrV == 0:
       return 0
-    diUp = (upSMA.v() / atrV) * 100
-    diDown = (downSMA.v() / atrV) * 100
-    adxSMA[type](Math.abs((diUp - diDown) / (diUp + diDown)))
-    return 100 * adxSMA.v()
+    diUp = (indicators.upSMA.v() / atrV) * 100
+    diDown = (indicators.downSMA.v() / atrV) * 100
+    indicators.adxSMA[type](Math.abs((diUp - diDown) / (diUp + diDown)))
+    return 100 * indicators.adxSMA.v()
 
   def update(self, candle):
     if self._lastCandle == None:
       return
     adx = ADX.calcUpdate(candle, self._lastCandle, {
-      'atr': self._atr,
-      'upSMA': self._upSMA,
-      'downSMA': self._downSMA,
-      'adxSMA': self._adxSMA
+      'indicators.atr': self._atr,
+      'indicators.upSMA': self._upSMA,
+      'indicators.downSMA': self._downSMA,
+      'indicators.adxSMA': self._adxSMA
     }, 'update')
     return super().update(adx)
 
@@ -69,10 +67,10 @@ class ADX(Indicator):
       self._lastCandle = candle
       return
     adx = ADX.calcUpdate(candle, self._lastCandle, {
-      'atr': self._atr,
-      'upSMA': self._upSMA,
-      'downSMA': self._downSMA,
-      'adxSMA': self._adxSMA
+      'indicators.atr': self._atr,
+      'indicators.upSMA': self._upSMA,
+      'indicators.downSMA': self._downSMA,
+      'indicators.adxSMA': self._adxSMA
     }, 'add')
     super().add(adx)
     self._lastCandle = candle

@@ -14,19 +14,17 @@ class BOP(Indicator):
     return BOP(args)
 
   def update(self, candle = {}):
-    undefined = candle
-    if high == low:
+    if candle.high == candle.low:
       super().update(1)
     else:
-      super().update((close - open) / (high - low))
+      super().update((candle.close - candle.open) / (candle.high - candle.low))
     return self.v()
 
   def add(self, candle = {}):
-    undefined = candle
-    if high == low:
+    if candle.high == candle.low:
       super().add(1)
     else:
-      super().add((close - open) / (high - low))
+      super().add((candle.close - candle.open) / (candle.high - candle.low))
     return self.v()
 
 

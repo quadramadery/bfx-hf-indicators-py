@@ -32,25 +32,25 @@ class RVI(Indicator):
   def _ud(self, candlePrice, stddev):
     if self._prevInputValue == None:
       return {
-        'u': 0,
-        'd': 0
+        'self._ud(value, self._stddev.v()).u': 0,
+        'self._ud(value, self._stddev.v()).d': 0
       }
     else:
       if candlePrice > self._prevInputValue:
         return {
-          'u': stddev,
-          'd': 0
+          'self._ud(value, self._stddev.v()).u': stddev,
+          'self._ud(value, self._stddev.v()).d': 0
         }
       else:
         if candlePrice < self._prevInputValue:
           return {
-            'u': 0,
-            'd': stddev
+            'self._ud(value, self._stddev.v()).u': 0,
+            'self._ud(value, self._stddev.v()).d': stddev
           }
         else:
           return {
-            'u': 0,
-            'd': 0
+            'self._ud(value, self._stddev.v()).u': 0,
+            'self._ud(value, self._stddev.v()).d': 0
           }
 
   def update(self, value):
@@ -60,9 +60,8 @@ class RVI(Indicator):
     stddev = self._stddev.v()
     if not _isFinite(stddev):
       return self.v()
-    undefined = self._ud(value, self._stddev.v())
-    self._uEMA.update(u)
-    self._dEMA.update(d)
+    self._uEMA.update(self._ud(value, self._stddev.v()).u)
+    self._dEMA.update(self._ud(value, self._stddev.v()).d)
     uSum = self._uEMA.v()
     dSum = self._dEMA.v()
     if uSum == dSum:
@@ -78,9 +77,8 @@ class RVI(Indicator):
     stddev = self._stddev.v()
     if not _isFinite(stddev):
       return self.v()
-    undefined = self._ud(value, stddev)
-    self._uEMA.add(u)
-    self._dEMA.add(d)
+    self._uEMA.add(self._ud(value, self._stddev.v()).u)
+    self._dEMA.add(self._ud(value, self._stddev.v()).d)
     uSum = self._uEMA.v()
     dSum = self._dEMA.v()
     if uSum == dSum:
