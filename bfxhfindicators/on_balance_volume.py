@@ -23,10 +23,10 @@ class OBV(Indicator):
       return self.v()
     v = self.prev() if self.l() > 1 else 0
     obv = v
-    if candle.close > self._lastCandle.candle.close:
+    if candle.close > self._lastCandle.close:
       obv = v + candle.vol
     else:
-      if candle.close < self._lastCandle.candle.close:
+      if candle.close < self._lastCandle.close:
         obv = v - candle.vol
     return super().update(obv)
 
@@ -36,10 +36,10 @@ class OBV(Indicator):
       return self.v()
     v = self.v() if self.l() > 0 else 0
     obv = v
-    if candle.close > self._lastCandle.candle.close:
+    if candle.close > self._lastCandle.close:
       obv = v + candle.vol
     else:
-      if candle.close < self._lastCandle.candle.close:
+      if candle.close < self._lastCandle.close:
         obv = v - candle.vol
     super().add(obv)
     self._lastCandle = candle

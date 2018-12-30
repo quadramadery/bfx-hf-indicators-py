@@ -28,18 +28,18 @@ class RVGI(Indicator):
 
   def calc(self, candle, buffer):
     barA = candle.close - candle.open
-    barB = buffer[2].candle.close - buffer[2].candle.open
-    barC = buffer[1].candle.close - buffer[1].candle.open
-    barD = buffer[0].candle.close - buffer[0].candle.open
-    RVGI.calc(candle, self._buffer).num = ((barA + (barB * 2)) + (barC * 2)) + barD.div(6)
+    barB = buffer[2].close - buffer[2].open
+    barC = buffer[1].close - buffer[1].open
+    barD = buffer[0].close - buffer[0].open
+    num = ((barA + (barB * 2)) + (barC * 2)) + barD.div(6)
     e = candle.high - candle.low
-    f = buffer[2].candle.high - buffer[2].candle.low
-    g = buffer[1].candle.high - buffer[1].candle.low
-    h = buffer[0].candle.high - buffer[0].candle.low
-    RVGI.calc(candle, self._buffer).den = ((e + (f * 2)) + (g * 2)) + h.div(6)
+    f = buffer[2].high - buffer[2].low
+    g = buffer[1].high - buffer[1].low
+    h = buffer[0].high - buffer[0].low
+    den = ((e + (f * 2)) + (g * 2)) + h.div(6)
     return {
-      'RVGI.calc(candle, self._buffer).num': RVGI.calc(candle, self._buffer).num,
-      'RVGI.calc(candle, self._buffer).den': RVGI.calc(candle, self._buffer).den
+      'num': num,
+      'den': den
     }
 
   def update(self, candle):
@@ -49,8 +49,9 @@ class RVGI(Indicator):
       self._buffer[-1] = candle
     if len(self._buffer) < 4:
       return super().update(0)
-    self._numeratorSMA.update(RVGI.calc(candle, self._buffer).num)
-    self._denominatorSMA.update(RVGI.calc(candle, self._buffer).den)
+    calc = RVGI.calc(candle, self._buffer)
+    self._numeratorSMA.update(calc.num)
+    self._denominatorSMA.update(calc.den)
     rvi = self._numeratorSMA.v() / self._denominatorSMA.v()
     signal = 0
     if self.l() >= 3:
@@ -70,8 +71,9 @@ class RVGI(Indicator):
     else:
       if len(self._buffer) < 4:
         return self.v()
-    self._numeratorSMA.add(RVGI.calc(candle, self._buffer).num)
-    self._denominatorSMA.add(RVGI.calc(candle, self._buffer).den)
+    calc = RVGI.calc(candle, self._buffer)
+    self._numeratorSMA.add(calc.num)
+    self._denominatorSMA.add(calc.den)
     rvi = self._numeratorSMA.v() / self._denominatorSMA.v()
     signal = 0
     if self.l() >= 4:
