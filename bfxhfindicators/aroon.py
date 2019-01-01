@@ -30,8 +30,8 @@ class Aroon(Indicator):
       return
     max = _max(self._buffer)
     min = _min(self._buffer)
-    daysSinceMax = len(self._buffer) - _findIndex(self._buffer, )
-    daysSinceMin = len(self._buffer) - _findIndex(self._buffer, )
+    daysSinceMax = len(self._buffer) - _findIndex(self._buffer, lambda v: v == max)
+    daysSinceMin = len(self._buffer) - _findIndex(self._buffer, lambda v: v == min)
     return super().update({
       'up': ((self._p - daysSinceMax) / self._p) * 100,
       'down': ((self._p - daysSinceMin) / self._p) * 100
@@ -46,8 +46,8 @@ class Aroon(Indicator):
         return
     max = _max(self._buffer)
     min = _min(self._buffer)
-    daysSinceMax = len(self._buffer) - _findIndex(self._buffer, )
-    daysSinceMin = len(self._buffer) - _findIndex(self._buffer, )
+    daysSinceMax = len(self._buffer) - _findIndex(self._buffer, lambda v: v == max)
+    daysSinceMin = len(self._buffer) - _findIndex(self._buffer, lambda v: v == min)
     return super().add({
       'up': ((self._p - daysSinceMax) / self._p) * 100,
       'down': ((self._p - daysSinceMin) / self._p) * 100
@@ -61,8 +61,8 @@ class Aroon(Indicator):
 
   def avg(self, n = 2):
     return {
-      'up': _sum(self.nValues(n).map()) / n,
-      'down': _sum(self.nValues(n).map()) / n
+      'up': _sum(self.nValues(n).map(lambda v: v.up)) / n,
+      'down': _sum(self.nValues(n).map(lambda v: v.down)) / n
     }
 
 

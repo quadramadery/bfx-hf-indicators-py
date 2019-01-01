@@ -23,7 +23,7 @@ class StdDeviation(Indicator):
     if len(self._buffer) < self._p:
       return 0
     avg = _sum(self._buffer) / len(self._buffer)
-    dev = self._buffer.map()
+    dev = self._buffer.map(lambda v: Math.pow(v - avg, 2))
     variance = _sum(dev) / (self._p - 1)
     return Math.sqrt(variance)
 
