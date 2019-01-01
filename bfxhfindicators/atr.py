@@ -18,7 +18,7 @@ class ATR(Indicator):
     return ATR(args)
 
   def seed(self, candles = []):
-    return _sum(candles.map(lambda c, i: ATR.tr(None if i == 0 else candles[i - 1], c))) / len(candles)
+    return _sum(map(lambda c, i: ATR.tr(None if i == 0 else candles[i - 1], c), candles)) / len(candles)
 
   def calc(self, prevATR, p, prevCandle, candle):
     return ((prevATR * (p - 1)) + ATR.tr(prevCandle, candle)) / p

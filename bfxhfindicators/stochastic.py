@@ -36,8 +36,8 @@ class Stochastic(Indicator):
     if len(self._buffer) < self._p:
       return self.v()
     close = candle.close
-    lowestLow = _min(self._buffer.map(lambda c: c.low))
-    highestHigh = _max(self._buffer.map(lambda c: c.high))
+    lowestLow = _min(map(lambda c: c.low, self._buffer))
+    highestHigh = _max(map(lambda c: c.high, self._buffer))
     k = 100 * ((close - lowestLow) / (highestHigh - lowestLow))
     self._kSMA.update(k)
     self._dSMA.update(self._kSMA.v())
@@ -54,8 +54,8 @@ class Stochastic(Indicator):
       if len(self._buffer) < self._p:
         return self.v()
     close = candle.close
-    lowestLow = _min(self._buffer.map(lambda c: c.low))
-    highestHigh = _max(self._buffer.map(lambda c: c.high))
+    lowestLow = _min(map(lambda c: c.low, self._buffer))
+    highestHigh = _max(map(lambda c: c.high, self._buffer))
     k = 100 * ((close - lowestLow) / (highestHigh - lowestLow))
     self._kSMA.add(k)
     self._dSMA.add(self._kSMA.v())

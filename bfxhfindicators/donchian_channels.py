@@ -29,8 +29,8 @@ class DC(Indicator):
       self._buffer[-1] = candle
     if len(self._buffer) < self._p:
       return
-    max = _max(self._buffer.map(lambda c: c.high))
-    min = _min(self._buffer.map(lambda c: c.low))
+    max = _max(map(lambda c: c.high, self._buffer))
+    min = _min(map(lambda c: c.low, self._buffer))
     return super().update({
       'upper': max,
       'middle': (max + min) / 2,
@@ -44,8 +44,8 @@ class DC(Indicator):
     else:
       if len(self._buffer) < self._p:
         return
-    max = _max(self._buffer.map(lambda c: c.high))
-    min = _min(self._buffer.map(lambda c: c.low))
+    max = _max(map(lambda c: c.high, self._buffer))
+    min = _min(map(lambda c: c.low, self._buffer))
     return super().add({
       'upper': max,
       'middle': (max + min) / 2,
