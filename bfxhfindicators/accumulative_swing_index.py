@@ -33,9 +33,8 @@ class AccumulativeSwingIndex(Indicator):
     er = 0
     if prevClose > high:
       er = high - prevClose
-    else:
-      if prevClose < low:
-        er = prevClose - low
+    elif prevClose < low:
+      er = prevClose - low
     r = tr - ((er * 0.5) + (sh * 0.25))
     if r == 0:
       return 0

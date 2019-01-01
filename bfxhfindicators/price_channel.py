@@ -43,9 +43,8 @@ class PC(Indicator):
     self._buffer.append(candle)
     if len(self._buffer) > self._l:
       del self._buffer[0]
-    else:
-      if len(self._buffer) < self._l:
-        return self.v()
+    elif len(self._buffer) < self._l:
+      return self.v()
     upper = _max(map(lambda c: c.high, self._buffer.slice(0, self._p)))
     lower = _min(map(lambda c: c.low, self._buffer.slice(0, self._p)))
     return super().add({

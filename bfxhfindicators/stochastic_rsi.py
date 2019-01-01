@@ -67,9 +67,8 @@ class StochasticRSI(Indicator):
     self._buffer.append(rsi)
     if len(self._buffer) > self._l:
       del self._buffer[0]
-    else:
-      if len(self._buffer) < self._l:
-        return self.v()
+    elif len(self._buffer) < self._l:
+      return self.v()
     low = _min(self._buffer)
     high = _max(self._buffer)
     stoch = 1 if high == low else (rsi - low) / (high - low)

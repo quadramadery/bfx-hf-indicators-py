@@ -43,9 +43,8 @@ class VWMA(Indicator):
     self._buffer.append(candle)
     if len(self._buffer) > self._p:
       del self._buffer[0]
-    else:
-      if len(self._buffer) < self._p:
-        return self.v()
+    elif len(self._buffer) < self._p:
+      return self.v()
     
     volSum = 0
     sum = 0

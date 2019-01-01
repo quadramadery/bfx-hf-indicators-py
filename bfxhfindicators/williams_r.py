@@ -38,9 +38,8 @@ class WilliamsR(Indicator):
     self._buffer.append(candle)
     if len(self._buffer) > self._p:
       del self._buffer[0]
-    else:
-      if len(self._buffer) < self._p:
-        return self.v()
+    elif len(self._buffer) < self._p:
+      return self.v()
     close = candle.close
     high = _max(map(lambda c: c.high, self._buffer))
     low = _min(map(lambda c: c.low, self._buffer))

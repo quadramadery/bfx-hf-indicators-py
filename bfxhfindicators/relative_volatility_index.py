@@ -35,23 +35,21 @@ class RVI(Indicator):
         'u': 0,
         'd': 0
       }
+    elif candlePrice > self._prevInputValue:
+      return {
+        'u': stddev,
+        'd': 0
+      }
+    elif candlePrice < self._prevInputValue:
+      return {
+        'u': 0,
+        'd': stddev
+      }
     else:
-      if candlePrice > self._prevInputValue:
-        return {
-          'u': stddev,
-          'd': 0
-        }
-      else:
-        if candlePrice < self._prevInputValue:
-          return {
-            'u': 0,
-            'd': stddev
-          }
-        else:
-          return {
-            'u': 0,
-            'd': 0
-          }
+      return {
+        'u': 0,
+        'd': 0
+      }
 
   def update(self, value):
     if self._prevInputValue == None:

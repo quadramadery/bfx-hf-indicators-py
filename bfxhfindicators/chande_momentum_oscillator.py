@@ -37,9 +37,8 @@ class ChandeMO(Indicator):
     self._buffer.append(candle)
     if len(self._buffer) > self._p:
       del self._buffer[0]
-    else:
-      if len(self._buffer) < self._p:
-        return
+    elif len(self._buffer) < self._p:
+      return
     sU = _sum(map(lambda : close - open, self._buffer.filter(lambda : close > open)))
     sD = _sum(map(lambda : open - close, self._buffer.filter(lambda : close < open)))
     return super().add(sU - sD.div(sU + sD) * 100)

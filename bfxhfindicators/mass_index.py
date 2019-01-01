@@ -45,9 +45,8 @@ class MassIndex(Indicator):
     self._buffer.append(self._singleEMA.v() / self._doubleEMA.v())
     if len(self._buffer) > self._smoothing:
       del self._buffer[0]
-    else:
-      if len(self._buffer) < self._smoothing:
-        return self.v()
+    elif len(self._buffer) < self._smoothing:
+      return self.v()
     return super().add(_sum(self._buffer))
 
 

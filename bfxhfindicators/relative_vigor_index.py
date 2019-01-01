@@ -68,9 +68,8 @@ class RVGI(Indicator):
     self._buffer.append(candle)
     if len(self._buffer) > 4:
       del self._buffer[0]
-    else:
-      if len(self._buffer) < 4:
-        return self.v()
+    elif len(self._buffer) < 4:
+      return self.v()
     calc = RVGI.calc(candle, self._buffer)
     self._numeratorSMA.add(calc.num)
     self._denominatorSMA.add(calc.den)

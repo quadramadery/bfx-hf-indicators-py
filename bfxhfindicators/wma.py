@@ -40,9 +40,8 @@ class WMA(Indicator):
     self._buffer.append(v)
     if len(self._buffer) > self._p:
       del self._buffer[0]
-    else:
-      if len(self._buffer) < self._p:
-        return self.v()
+    elif len(self._buffer) < self._p:
+      return self.v()
     n = 0
     for i in range(1, self._p):
       n += self._buffer[-i] * (self._p - (i - 1))

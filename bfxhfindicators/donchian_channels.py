@@ -41,9 +41,8 @@ class DC(Indicator):
     self._buffer.append(candle)
     if len(self._buffer) > self._p:
       del self._buffer[0]
-    else:
-      if len(self._buffer) < self._p:
-        return
+    elif len(self._buffer) < self._p:
+      return
     max = _max(map(lambda c: c.high, self._buffer))
     min = _min(map(lambda c: c.low, self._buffer))
     return super().add({
