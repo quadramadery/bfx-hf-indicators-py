@@ -1,5 +1,3 @@
-from lodash/isEmpty import _isEmpty
-from bignumber.js import BigN
 from bfxhfindicators.indicator import Indicator
 class ALMA(Indicator):
   def __init__(self, args = []):

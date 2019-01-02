@@ -1,4 +1,3 @@
-from bignumber.js import BigN
 from bfxhfindicators.indicator import Indicator
 from bfxhfindicators.sma import SMA
 class EOM(Indicator):

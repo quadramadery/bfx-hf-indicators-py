@@ -1,4 +1,3 @@
-from lodash/isEmpty import _isEmpty
 from bfxhfindicators.indicator import Indicator
 class ROC(Indicator):
   def __init__(self, args = []):

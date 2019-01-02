@@ -1,5 +1,4 @@
 from lodash/isObject import _isObject
-from lodash/max import _max
 from bfxhfindicators.indicator import Indicator
 from bfxhfindicators.roc import ROC
 from bfxhfindicators.sma import SMA

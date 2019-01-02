@@ -1,6 +1,4 @@
-from lodash/max import _max
 from bfxhfindicators.indicator import Indicator
-from bignumber.js import BigN
 class AccumulativeSwingIndex(Indicator):
   def __init__(self, args = []):
     [ limitMoveValue ] = args

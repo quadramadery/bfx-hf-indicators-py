@@ -1,5 +1,3 @@
-from lodash/max import _max
-from lodash/min import _min
 from bfxhfindicators.indicator import Indicator
 class WilliamsR(Indicator):
   def __init__(self, args = []):

@@ -1,4 +1,3 @@
-from lodash/isEmpty import _isEmpty
 from bfxhfindicators.indicator import Indicator
 from bfxhfindicators.roc import ROC
 class Acceleration(Indicator):

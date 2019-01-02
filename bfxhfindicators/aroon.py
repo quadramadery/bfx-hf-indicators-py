@@ -1,6 +1,3 @@
-from lodash/isEmpty import _isEmpty
-from lodash/max import _max
-from lodash/min import _min
 from lodash/findIndex import _findIndex
 from bfxhfindicators.indicator import Indicator
 class Aroon(Indicator):

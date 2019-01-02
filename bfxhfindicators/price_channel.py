@@ -1,6 +1,4 @@
 from bfxhfindicators.indicator import Indicator
-from lodash/min import _min
-from lodash/max import _max
 class PC(Indicator):
   def __init__(self, args = []):
     [ period, offset ] = args

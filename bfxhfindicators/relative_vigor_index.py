@@ -1,4 +1,3 @@
-from bignumber.js import BigN
 from bfxhfindicators.sma import SMA
 from bfxhfindicators.indicator import Indicator
 class RVGI(Indicator):
