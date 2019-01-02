@@ -1,5 +1,4 @@
 from bignumber.js import BigN
-from lodash/isFinite import _isFinite
 from bfxhfindicators.indicator import Indicator
 from bfxhfindicators.sma import SMA
 class EOM(Indicator):

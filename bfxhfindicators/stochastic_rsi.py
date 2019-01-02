@@ -1,4 +1,3 @@
-from lodash/isFinite import _isFinite
 from lodash/min import _min
 from lodash/max import _max
 from bfxhfindicators.indicator import Indicator

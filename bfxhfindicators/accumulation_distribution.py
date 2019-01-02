@@ -1,4 +1,3 @@
-from lodash/isFinite import _isFinite
 from bfxhfindicators.indicator import Indicator
 class AccumulationDistribution(Indicator):
   def __init__(self, args = []):

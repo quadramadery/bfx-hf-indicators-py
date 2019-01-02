@@ -1,5 +1,4 @@
 from lodash/sum import _sum
-from lodash/isFinite import _isFinite
 from bfxhfindicators.sma import SMA
 from bfxhfindicators.stddev import StdDeviation
 from bfxhfindicators.indicator import Indicator

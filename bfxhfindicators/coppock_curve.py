@@ -1,4 +1,3 @@
-from lodash/isFinite import _isFinite
 from bfxhfindicators.indicator import Indicator
 from bfxhfindicators.wma import WMA
 from bfxhfindicators.roc import ROC
