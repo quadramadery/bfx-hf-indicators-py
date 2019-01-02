@@ -32,7 +32,7 @@ class TRIX(Indicator):
     self._emaThird.update(self._emaSecond.v())
     curr = self._emaThird.v()
     prev = self._emaThird.prev()
-    if not _isFinite(curr) or not _isFinite(prev):
+    if not isfinite(curr) or not isfinite(prev):
       return self.v()
     return super().update(((curr / prev) - 1) * 10000)
 
@@ -42,7 +42,7 @@ class TRIX(Indicator):
     self._emaThird.add(self._emaSecond.v())
     curr = self._emaThird.v()
     prev = self._emaThird.prev()
-    if not _isFinite(curr) or not _isFinite(prev):
+    if not isfinite(curr) or not isfinite(prev):
       return self.v()
     return super().add(((curr / prev) - 1) * 10000)
 

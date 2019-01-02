@@ -24,7 +24,7 @@ class Envelope(Indicator):
   def update(self, v):
     self._sma.update(v)
     basis = self._sma.v()
-    if not _isFinite(basis):
+    if not isfinite(basis):
       return
     delta = basis * self._p
     return super().update({
@@ -36,7 +36,7 @@ class Envelope(Indicator):
   def add(self, v):
     self._sma.add(v)
     basis = self._sma.v()
-    if not _isFinite(basis):
+    if not isfinite(basis):
       return
     delta = basis * self._p
     return super().add({

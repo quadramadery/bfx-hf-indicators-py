@@ -56,7 +56,7 @@ class RVI(Indicator):
       return self.v()
     self._stddev.update(value)
     stddev = self._stddev.v()
-    if not _isFinite(stddev):
+    if not isfinite(stddev):
       return self.v()
     _ud = self._ud(value, self._stddev.v())
     self._uEMA.update(_ud.u)
@@ -74,7 +74,7 @@ class RVI(Indicator):
       return self.v()
     self._stddev.add(value)
     stddev = self._stddev.v()
-    if not _isFinite(stddev):
+    if not isfinite(stddev):
       return self.v()
     _ud = self._ud(value, stddev)
     self._uEMA.add(_ud.u)

@@ -53,7 +53,7 @@ class Aroon(Indicator):
     })
 
   def ready(self):
-    return _isFinite(self.v() or {}.up)
+    return isfinite(self.v() or {}.up)
 
   def crossed(self):
     return false

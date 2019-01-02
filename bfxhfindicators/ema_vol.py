@@ -26,7 +26,7 @@ class EMAVolume(Indicator):
     vol = candle.vol
     self._ema.update(vol)
     ema = self._ema.v()
-    if _isFinite(ema):
+    if isfinite(ema):
       super().update(ema)
     return self.v()
 
@@ -34,7 +34,7 @@ class EMAVolume(Indicator):
     vol = candle.vol
     self._ema.add(vol)
     ema = self._ema.v()
-    if _isFinite(ema):
+    if isfinite(ema):
       super().add(ema)
     return self.v()
 

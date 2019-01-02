@@ -39,7 +39,7 @@ class EOM(Indicator):
     eom = moved.div(boxRatio)
     self._sma.update(eom)
     v = self._sma.v()
-    if _isFinite(v):
+    if isfinite(v):
       super().update(v)
     return self.v()
 
@@ -57,7 +57,7 @@ class EOM(Indicator):
     eom = moved.div(boxRatio)
     self._sma.add(eom)
     v = self._sma.v()
-    if _isFinite(v):
+    if isfinite(v):
       super().add(v)
     self._lastCandle = candle
     return self.v()

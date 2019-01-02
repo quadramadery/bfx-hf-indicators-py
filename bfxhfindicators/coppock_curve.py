@@ -32,7 +32,7 @@ class CoppockCurve(Indicator):
     self._longROC.update(v)
     short = self._shortROC.v()
     long = self._longROC.v()
-    if not _isFinite(short) or not _isFinite(long):
+    if not isfinite(short) or not isfinite(long):
       return
     self._wma.update(short + long)
     return super().update(self._wma.v())
@@ -42,7 +42,7 @@ class CoppockCurve(Indicator):
     self._longROC.add(v)
     short = self._shortROC.v()
     long = self._longROC.v()
-    if not _isFinite(short) or not _isFinite(long):
+    if not isfinite(short) or not isfinite(long):
       return
     self._wma.add(short + long)
     return super().add(self._wma.v())

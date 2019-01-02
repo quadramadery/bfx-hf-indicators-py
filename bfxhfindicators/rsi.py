@@ -36,7 +36,7 @@ class RSI(Indicator):
   def _rs(self):
     uAvg = self._uEMA.v()
     dAvg = self._dEMA.v()
-    return None if not _isFinite(uAvg) or not _isFinite(dAvg) or dAvg == 0 else uAvg / dAvg
+    return None if not isfinite(uAvg) or not isfinite(dAvg) or dAvg == 0 else uAvg / dAvg
 
   def update(self, value):
     if self._prevInputValue == None:
@@ -45,7 +45,7 @@ class RSI(Indicator):
     self._uEMA.update(_ud.u)
     self._dEMA.update(_ud.d)
     rs = self._rs()
-    if _isFinite(rs):
+    if isfinite(rs):
       super().update(100 - (100 / (1 + rs)))
     return self.v()
 
@@ -56,7 +56,7 @@ class RSI(Indicator):
     self._uEMA.add(_ud.u)
     self._dEMA.add(_ud.d)
     rs = self._rs()
-    if _isFinite(rs):
+    if isfinite(rs):
       super().add(100 - (100 / (1 + rs)))
       self._prevInputValue = value
     return self.v()

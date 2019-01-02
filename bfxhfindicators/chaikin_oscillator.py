@@ -32,26 +32,26 @@ class ChaikinOsc(Indicator):
   def update(self, candle):
     self._adl.update(candle)
     adl = self._adl.v()
-    if not _isFinite(adl):
+    if not isfinite(adl):
       return
     self._shortEMA.update(adl)
     self._longEMA.update(adl)
     short = self._shortEMA.v()
     long = self._longEMA.v()
-    if _isFinite(short) and _isFinite(long):
+    if isfinite(short) and isfinite(long):
       super().update(short - long)
     return self.v()
 
   def add(self, candle):
     self._adl.add(candle)
     adl = self._adl.v()
-    if not _isFinite(adl):
+    if not isfinite(adl):
       return
     self._shortEMA.add(adl)
     self._longEMA.add(adl)
     short = self._shortEMA.v()
     long = self._longEMA.v()
-    if _isFinite(short) and _isFinite(long):
+    if isfinite(short) and isfinite(long):
       super().add(short - long)
     return self.v()
 

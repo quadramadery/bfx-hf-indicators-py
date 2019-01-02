@@ -20,12 +20,12 @@ class AccumulationDistribution(Indicator):
     moneyFlowMult = 0 if candle.high == candle.low else ((candle.close - candle.low) - (candle.high - candle.close)) / (candle.high - candle.low)
     moneyFlowVol = moneyFlowMult * candle.vol
     prev = self.prev()
-    return super().update(prev + moneyFlowVol if _isFinite(prev) else moneyFlowVol)
+    return super().update(prev + moneyFlowVol if isfinite(prev) else moneyFlowVol)
 
   def add(self, candle):
     moneyFlowMult = 0 if candle.high == candle.low else ((candle.close - candle.low) - (candle.high - candle.close)) / (candle.high - candle.low)
     moneyFlowVol = moneyFlowMult * candle.vol
     prev = self.v()
-    return super().add(prev + moneyFlowVol if _isFinite(prev) else moneyFlowVol)
+    return super().add(prev + moneyFlowVol if isfinite(prev) else moneyFlowVol)
 
 

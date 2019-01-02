@@ -50,7 +50,7 @@ class BollingerBands(Indicator):
     })
 
   def ready(self):
-    return _isFinite(self.v() or {}.middle)
+    return isfinite(self.v() or {}.middle)
 
   def crossed(self, target):
     if self.l() < 2:

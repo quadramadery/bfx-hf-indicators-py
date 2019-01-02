@@ -35,7 +35,7 @@ class StochasticRSI(Indicator):
   def update(self, v):
     self._rsi.update(v)
     rsi = self._rsi.v()
-    if not _isFinite(rsi):
+    if not isfinite(rsi):
       return self.v()
     if len(self._buffer) == 0:
       self._buffer.append(rsi)
@@ -48,11 +48,11 @@ class StochasticRSI(Indicator):
     stoch = 1 if high == low else (rsi - low) / (high - low)
     self._smaStoch.update(stoch * 100)
     smaStoch = self._smaStoch.v()
-    if not _isFinite(smaStoch):
+    if not isfinite(smaStoch):
       return self.v()
     self._smaSignal.update(smaStoch)
     smaSignal = self._smaSignal.v()
-    if _isFinite(smaSignal):
+    if isfinite(smaSignal):
       super().update({
         'v': smaStoch,
         'signal': smaSignal
@@ -62,7 +62,7 @@ class StochasticRSI(Indicator):
   def add(self, v):
     self._rsi.add(v)
     rsi = self._rsi.v()
-    if not _isFinite(rsi):
+    if not isfinite(rsi):
       return self.v()
     self._buffer.append(rsi)
     if len(self._buffer) > self._l:
@@ -74,11 +74,11 @@ class StochasticRSI(Indicator):
     stoch = 1 if high == low else (rsi - low) / (high - low)
     self._smaStoch.add(stoch * 100)
     smaStoch = self._smaStoch.v()
-    if not _isFinite(smaStoch):
+    if not isfinite(smaStoch):
       return self.v()
     self._smaSignal.add(smaStoch)
     smaSignal = self._smaSignal.v()
-    if _isFinite(smaSignal):
+    if isfinite(smaSignal):
       super().add({
         'v': smaStoch,
         'signal': smaSignal
