@@ -8,7 +8,7 @@ class TSI(Indicator):
       'args': args,
       'id': 'tsi',
       'name': 'TSI(%f, %f, %f)' % (long, short, signal),
-      'seedPeriod': _max([long, short, signal])
+      'seedPeriod': max([long, short, signal])
     })
     self._pcEMA = EMA([long])
     self._pc2EMA = EMA([short])

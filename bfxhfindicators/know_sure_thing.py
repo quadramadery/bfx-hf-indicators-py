@@ -10,7 +10,7 @@ class KST(Indicator):
       'args': args,
       'id': 'kst',
       'name': 'KST (%f)' % ([rocA, rocB, rocC, rocD, smaA, smaB, smaC, smaD, smaSignal].join(',')),
-      'seedPeriod': _max([rocA + smaA, rocB + smaB, rocC + smaC, rocD + smaD, smaSignal])
+      'seedPeriod': max([rocA + smaA, rocB + smaB, rocC + smaC, rocD + smaD, smaSignal])
     })
     self._rocA = ROC([rocA])
     self._rocB = ROC([rocB])

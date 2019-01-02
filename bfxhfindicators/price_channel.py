@@ -31,8 +31,8 @@ class PC(Indicator):
       self._buffer[-1] = candle
     if len(self._buffer) < self._l:
       return super().update(0)
-    upper = _max(map(lambda c: c.high, self._buffer.slice(0, self._p)))
-    lower = _min(map(lambda c: c.low, self._buffer.slice(0, self._p)))
+    upper = max(map(lambda c: c.high, self._buffer.slice(0, self._p)))
+    lower = min(map(lambda c: c.low, self._buffer.slice(0, self._p)))
     return super().update({
       'upper': upper,
       'lower': lower,
@@ -45,8 +45,8 @@ class PC(Indicator):
       del self._buffer[0]
     elif len(self._buffer) < self._l:
       return self.v()
-    upper = _max(map(lambda c: c.high, self._buffer.slice(0, self._p)))
-    lower = _min(map(lambda c: c.low, self._buffer.slice(0, self._p)))
+    upper = max(map(lambda c: c.high, self._buffer.slice(0, self._p)))
+    lower = min(map(lambda c: c.low, self._buffer.slice(0, self._p)))
     return super().add({
       'upper': upper,
       'lower': lower,

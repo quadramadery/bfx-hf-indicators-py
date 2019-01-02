@@ -28,8 +28,8 @@ class Aroon(Indicator):
       self._buffer[-1] = value
     if len(self._buffer) < self._p:
       return
-    max = _max(self._buffer)
-    min = _min(self._buffer)
+    max = max(self._buffer)
+    min = min(self._buffer)
     daysSinceMax = len(self._buffer) - _findIndex(self._buffer, lambda v: v == max)
     daysSinceMin = len(self._buffer) - _findIndex(self._buffer, lambda v: v == min)
     return super().update({
@@ -43,8 +43,8 @@ class Aroon(Indicator):
       del self._buffer[0]
     elif len(self._buffer) < self._p:
       return
-    max = _max(self._buffer)
-    min = _min(self._buffer)
+    max = max(self._buffer)
+    min = min(self._buffer)
     daysSinceMax = len(self._buffer) - _findIndex(self._buffer, lambda v: v == max)
     daysSinceMin = len(self._buffer) - _findIndex(self._buffer, lambda v: v == min)
     return super().add({
