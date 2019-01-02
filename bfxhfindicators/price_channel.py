@@ -17,7 +17,7 @@ class PC(Indicator):
     self._l = period + offset
     self._buffer = []
 
-  def unserialize(self, args = []):
+  def unserialize(args = []):
     return PC(args)
 
   def reset(self):

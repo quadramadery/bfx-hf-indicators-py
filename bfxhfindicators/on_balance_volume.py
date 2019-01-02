@@ -11,7 +11,7 @@ class OBV(Indicator):
     })
     self._lastCandle = None
 
-  def unserialize(self, args = []):
+  def unserialize(args = []):
     return OBV(args)
 
   def reset(self):

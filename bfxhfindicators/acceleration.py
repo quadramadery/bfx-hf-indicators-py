@@ -13,7 +13,7 @@ class Acceleration(Indicator):
     self._roc = ROC([period])
     self._p = period
 
-  def unserialize(self, args = []):
+  def unserialize(args = []):
     return Acceleration(args)
 
   def reset(self):

@@ -11,7 +11,7 @@ class PVT(Indicator):
     })
     self._lastCandle = None
 
-  def unserialize(self, args = []):
+  def unserialize(args = []):
     return PVT(args)
 
   def reset(self):

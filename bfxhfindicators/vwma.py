@@ -15,7 +15,7 @@ class VWMA(Indicator):
     self._p = period
     self._buffer = []
 
-  def unserialize(self, args = []):
+  def unserialize(args = []):
     return VWMA(args)
 
   def reset(self):

@@ -16,7 +16,7 @@ class RVI(Indicator):
     self._dEMA = EMA([period])
     self._prevInputValue = None
 
-  def unserialize(self, args = []):
+  def unserialize(args = []):
     return RVI(args)
 
   def reset(self):

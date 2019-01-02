@@ -15,7 +15,7 @@ class RSI(Indicator):
     self._dEMA = EMA([period])
     self._prevInputValue = None
 
-  def unserialize(self, args = []):
+  def unserialize(args = []):
     return RSI(args)
 
   def reset(self):

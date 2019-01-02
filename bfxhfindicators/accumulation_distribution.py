@@ -10,7 +10,7 @@ class AccumulationDistribution(Indicator):
       'dataKey': '*'
     })
 
-  def unserialize(self, args = []):
+  def unserialize(args = []):
     return AccumulationDistribution(args)
 
   def reset(self):

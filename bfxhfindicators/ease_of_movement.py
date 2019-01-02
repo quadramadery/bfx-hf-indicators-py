@@ -17,7 +17,7 @@ class EOM(Indicator):
     self._sma = SMA([length])
     self._lastCandle = None
 
-  def unserialize(self, args = []):
+  def unserialize(args = []):
     return EOM(args)
 
   def reset(self):

@@ -15,7 +15,7 @@ class DC(Indicator):
     self._p = period
     self._buffer = []
 
-  def unserialize(self, args = []):
+  def unserialize(args = []):
     return DC(args)
 
   def reset(self):

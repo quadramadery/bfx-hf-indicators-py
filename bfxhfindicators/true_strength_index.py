@@ -17,7 +17,7 @@ class TSI(Indicator):
     self._sEMA = EMA([signal])
     self._lastPrice = None
 
-  def unserialize(self, args = []):
+  def unserialize(args = []):
     return TSI(args)
 
   def reset(self):

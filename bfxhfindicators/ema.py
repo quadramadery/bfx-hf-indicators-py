@@ -11,7 +11,7 @@ class EMA(Indicator):
     })
     self._a = 2 / (period + 1)
 
-  def unserialize(self, args = []):
+  def unserialize(args = []):
     return EMA(args)
 
   def update(self, v):

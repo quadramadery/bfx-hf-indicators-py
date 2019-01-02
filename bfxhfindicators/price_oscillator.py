@@ -13,7 +13,7 @@ class PPO(Indicator):
     self._longEMA = EMA([longPeriod])
     self._signalEMA = EMA([9])
 
-  def unserialize(self, args = []):
+  def unserialize(args = []):
     return PPO(args)
 
   def reset(self):

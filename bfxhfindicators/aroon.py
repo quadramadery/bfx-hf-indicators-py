@@ -14,7 +14,7 @@ class Aroon(Indicator):
     })
     self._p = period
 
-  def unserialize(self, args = []):
+  def unserialize(args = []):
     return Aroon(args)
 
   def reset(self):

@@ -19,7 +19,7 @@ class StochasticRSI(Indicator):
     self._smaStoch = SMA([smoothStoch])
     self._smaSignal = SMA([smoothSignal])
 
-  def unserialize(self, args = []):
+  def unserialize(args = []):
     return StochasticRSI(args)
 
   def reset(self):

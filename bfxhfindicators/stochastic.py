@@ -17,7 +17,7 @@ class Stochastic(Indicator):
     self._kSMA = SMA([smoothK])
     self._dSMA = SMA([smoothD])
 
-  def unserialize(self, args = []):
+  def unserialize(args = []):
     return Stochastic(args)
 
   def reset(self):

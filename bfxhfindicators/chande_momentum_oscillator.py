@@ -15,7 +15,7 @@ class ChandeMO(Indicator):
     self._p = period
     self._buffer = []
 
-  def unserialize(self, args = []):
+  def unserialize(args = []):
     return ChandeMO(args)
 
   def reset(self):

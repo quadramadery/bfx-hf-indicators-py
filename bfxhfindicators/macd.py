@@ -13,7 +13,7 @@ class MACD(Indicator):
     self._fastEMA = EMA([fastMA])
     self._signalEMA = EMA([signalMA])
 
-  def unserialize(self, args = []):
+  def unserialize(args = []):
     return MACD(args)
 
   def reset(self):

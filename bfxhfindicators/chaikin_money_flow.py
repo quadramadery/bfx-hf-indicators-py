@@ -15,7 +15,7 @@ class CMF(Indicator):
     self._bufferVol = []
     self._bufferMFV = []
 
-  def unserialize(self, args = []):
+  def unserialize(args = []):
     return CMF(args)
 
   def reset(self):

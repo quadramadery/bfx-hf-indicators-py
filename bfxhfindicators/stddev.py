@@ -12,7 +12,7 @@ class StdDeviation(Indicator):
     })
     self._p = period
 
-  def unserialize(self, args = []):
+  def unserialize(args = []):
     return StdDeviation(args)
 
   def reset(self):

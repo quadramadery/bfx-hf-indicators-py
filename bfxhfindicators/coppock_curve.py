@@ -15,7 +15,7 @@ class CoppockCurve(Indicator):
     self._shortROC = ROC([shortROCLength])
     self._longROC = ROC([longROCLength])
 
-  def unserialize(self, args = []):
+  def unserialize(args = []):
     return CoppockCurve(args)
 
   def reset(self):

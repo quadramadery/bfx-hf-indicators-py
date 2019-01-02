@@ -22,7 +22,7 @@ class KST(Indicator):
     self._smaD = SMA([smaD])
     self._smaSignal = SMA([smaSignal])
 
-  def unserialize(self, args = []):
+  def unserialize(args = []):
     return KST(args)
 
   def reset(self):

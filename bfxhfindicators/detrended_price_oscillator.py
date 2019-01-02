@@ -12,7 +12,7 @@ class DPO(Indicator):
     self._pricePeriod = Math.floor(period / 2) + 1
     self._sma = SMA([period])
 
-  def unserialize(self, args = []):
+  def unserialize(args = []):
     return DPO(args)
 
   def reset(self):

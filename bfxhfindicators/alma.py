@@ -14,10 +14,10 @@ class ALMA(Indicator):
     self._offset = offset
     self._s = sigma
 
-  def unserialize(self, args = []):
+  def unserialize(args = []):
     return ALMA(args)
 
-  def calc(self, buffer, period, offset, sigma):
+  def calc(buffer, period, offset, sigma):
     m = offset * (period - 1)
     s = period / sigma
     windowSum = 0

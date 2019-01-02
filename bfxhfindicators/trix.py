@@ -14,7 +14,7 @@ class TRIX(Indicator):
     self._emaSecond = EMA([period])
     self._emaThird = EMA([period])
 
-  def unserialize(self, args = []):
+  def unserialize(args = []):
     return TRIX(args)
 
   def reset(self):

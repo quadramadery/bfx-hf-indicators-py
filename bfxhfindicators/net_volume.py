@@ -10,7 +10,7 @@ class NetVolume(Indicator):
       'dataKey': '*'
     })
 
-  def unserialize(self, args = []):
+  def unserialize(args = []):
     return NetVolume(args)
 
   def update(self, candle):

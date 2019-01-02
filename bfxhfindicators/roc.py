@@ -11,7 +11,7 @@ class ROC(Indicator):
     })
     self._p = period
 
-  def unserialize(self, args = []):
+  def unserialize(args = []):
     return ROC(args)
 
   def reset(self):

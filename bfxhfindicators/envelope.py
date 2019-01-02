@@ -13,7 +13,7 @@ class Envelope(Indicator):
     self._sma = SMA([length])
     self._p = percent / 100
 
-  def unserialize(self, args = []):
+  def unserialize(args = []):
     return Envelope(args)
 
   def reset(self):

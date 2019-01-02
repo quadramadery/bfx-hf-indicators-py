@@ -14,10 +14,10 @@ class AccumulativeSwingIndex(Indicator):
     self._lmv = limitMoveValue
     self._prevCandle = None
 
-  def unserialize(self, args = []):
+  def unserialize(args = []):
     return AccumulativeSwingIndex(args)
 
-  def calcSI(self, candle, prevCandle, _lmv):
+  def calcSI(candle, prevCandle, _lmv):
     if _lmv == 0:
       return 0
     lmv = _lmv

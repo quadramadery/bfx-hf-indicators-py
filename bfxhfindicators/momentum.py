@@ -11,7 +11,7 @@ class Momentum(Indicator):
     })
     self._p = period
 
-  def unserialize(self, args = []):
+  def unserialize(args = []):
     return Momentum(args)
 
   def reset(self):

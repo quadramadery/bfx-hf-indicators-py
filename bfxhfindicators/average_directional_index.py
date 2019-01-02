@@ -18,7 +18,7 @@ class ADX(Indicator):
     self._downSMA = SMA([length])
     self._atr = ATR([length])
 
-  def unserialize(self, args = []):
+  def unserialize(args = []):
     return ADX(args)
 
   def reset(self):
@@ -33,7 +33,7 @@ class ADX(Indicator):
       self._atr.reset()
     self._lastCandle = None
 
-  def calcUpdate(self, candle = {}, lastCandle = {}, indicators = {}, type):
+  def calcUpdate(candle = {}, lastCandle = {}, indicators = {}, type):
     if type !== 'add' and type !== 'update':
       
     upMove = candle.high - lastCandle.high

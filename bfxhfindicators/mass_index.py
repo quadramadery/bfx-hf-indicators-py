@@ -17,7 +17,7 @@ class MassIndex(Indicator):
     self._doubleEMA = EMA([9])
     self._buffer = []
 
-  def unserialize(self, args = []):
+  def unserialize(args = []):
     return MassIndex(args)
 
   def reset(self):

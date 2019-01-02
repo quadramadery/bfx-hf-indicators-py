@@ -17,7 +17,7 @@ class WMA(Indicator):
     self._d = d
     self._buffer = []
 
-  def unserialize(self, args = []):
+  def unserialize(args = []):
     return WMA(args)
 
   def reset(self):

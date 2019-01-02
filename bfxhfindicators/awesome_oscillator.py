@@ -13,7 +13,7 @@ class AO(Indicator):
     self._smaShort = SMA([5])
     self._smaLong = SMA([34])
 
-  def unserialize(self, args = []):
+  def unserialize(args = []):
     return AO(args)
 
   def reset(self):

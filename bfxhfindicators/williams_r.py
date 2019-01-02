@@ -15,7 +15,7 @@ class WilliamsR(Indicator):
     self._p = period
     self._buffer = []
 
-  def unserialize(self, args = []):
+  def unserialize(args = []):
     return WilliamsR(args)
 
   def reset(self):

@@ -10,7 +10,7 @@ class BOP(Indicator):
       'dataKey': '*'
     })
 
-  def unserialize(self, args = []):
+  def unserialize(args = []):
     return BOP(args)
 
   def update(self, candle = {}):

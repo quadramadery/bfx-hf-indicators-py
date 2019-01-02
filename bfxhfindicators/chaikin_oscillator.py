@@ -17,7 +17,7 @@ class ChaikinOsc(Indicator):
     self._longEMA = EMA([long])
     self._adl = ADL()
 
-  def unserialize(self, args = []):
+  def unserialize(args = []):
     return ChaikinOsc(args)
 
   def reset(self):

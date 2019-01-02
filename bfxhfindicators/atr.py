@@ -14,16 +14,16 @@ class ATR(Indicator):
     self._p = period
     self._prevCandle = None
 
-  def unserialize(self, args = []):
+  def unserialize(args = []):
     return ATR(args)
 
-  def seed(self, candles = []):
+  def seed(candles = []):
     return _sum(map(lambda c, i: ATR.tr(None if i == 0 else candles[i - 1], c), candles)) / len(candles)
 
-  def calc(self, prevATR, p, prevCandle, candle):
+  def calc(prevATR, p, prevCandle, candle):
     return ((prevATR * (p - 1)) + ATR.tr(prevCandle, candle)) / p
 
-  def tr(self, prevCandle, candle = {}):
+  def tr(prevCandle, candle = {}):
     return Math.max(prevCandle.high - prevCandle.low if prevCandle else 0, Math.abs(candle.high - prevCandle.close) if prevCandle else 0, Math.abs(candle.low - prevCandle.close) if prevCandle else 0)
 
   def reset(self):

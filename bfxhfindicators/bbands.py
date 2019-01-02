@@ -17,7 +17,7 @@ class BollingerBands(Indicator):
     self._ema = SMA([period])
     self._stddev = StdDeviation([period])
 
-  def unserialize(self, args = []):
+  def unserialize(args = []):
     return BollingerBands(args)
 
   def reset(self):

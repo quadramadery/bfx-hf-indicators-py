@@ -12,7 +12,7 @@ class SMA(Indicator):
     })
     self._p = period
 
-  def unserialize(self, args = []):
+  def unserialize(args = []):
     return SMA(args)
 
   def reset(self):

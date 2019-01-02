@@ -14,7 +14,7 @@ class VWAP(Indicator):
     self._lastNum = 0
     self._lastDen = 0
 
-  def unserialize(self, args = []):
+  def unserialize(args = []):
     return VWAP(args)
 
   def reset(self):

@@ -14,7 +14,7 @@ class VO(Indicator):
     self._shortEMA = EMA([shortPeriod])
     self._longEMA = EMA([longPeriod])
 
-  def unserialize(self, args = []):
+  def unserialize(args = []):
     return VO(args)
 
   def reset(self):

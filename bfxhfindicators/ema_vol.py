@@ -14,7 +14,7 @@ class EMAVolume(Indicator):
     })
     self._ema = EMA([period])
 
-  def unserialize(self, args = []):
+  def unserialize(args = []):
     return EMAVolume(args)
 
   def reset(self):

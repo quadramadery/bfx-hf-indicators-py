@@ -15,7 +15,7 @@ class RVGI(Indicator):
     self._numeratorSMA = SMA([period])
     self._denominatorSMA = SMA([period])
 
-  def unserialize(self, args = []):
+  def unserialize(args = []):
     return RVGI(args)
 
   def reset(self):
@@ -26,7 +26,7 @@ class RVGI(Indicator):
       self._denominatorSMA.reset()
     self._buffer = []
 
-  def calc(self, candle, buffer):
+  def calc(candle, buffer):
     barA = candle.close - candle.open
     barB = buffer[2].close - buffer[2].open
     barC = buffer[1].close - buffer[1].open
