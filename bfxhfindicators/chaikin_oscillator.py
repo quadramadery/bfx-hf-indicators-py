@@ -8,7 +8,7 @@ class ChaikinOsc(Indicator):
       'args': args,
       'id': 'chaikinosc',
       'name': 'ChaikinOsc (%f, %f)' % (short, long),
-      'seedPeriod': Math.max(short, long),
+      'seedPeriod': max([short, long]),
       'dataType': 'candle',
       'dataKey': '*'
     })

@@ -8,7 +8,7 @@ class CoppockCurve(Indicator):
       'args': args,
       'id': 'coppockcurve',
       'name': 'Coppock Curve(%f, %f, %f)' % (wmaLength, longROCLength, shortROCLength),
-      'seedPeriod': Math.max(longROCLength + wmaLength, shortROCLength + wmaLength)
+      'seedPeriod': max([longROCLength + wmaLength, shortROCLength + wmaLength])
     })
     self._wma = WMA([wmaLength])
     self._shortROC = ROC([shortROCLength])

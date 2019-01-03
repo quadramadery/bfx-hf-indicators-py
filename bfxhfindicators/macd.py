@@ -7,7 +7,7 @@ class MACD(Indicator):
       'args': args,
       'id': 'macd',
       'name': 'MACD(%f,%f,%f)' % (fastMA, slowMA, signalMA),
-      'seedPeriod': Math.max(fastMA, slowMA) + signalMA
+      'seedPeriod': max([fastMA, slowMA]) + signalMA
     })
     self._slowEMA = EMA([slowMA])
     self._fastEMA = EMA([fastMA])

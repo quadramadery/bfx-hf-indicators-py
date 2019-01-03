@@ -24,7 +24,7 @@ class ATR(Indicator):
     return ((prevATR * (p - 1)) + ATR.tr(prevCandle, candle)) / p
 
   def tr(prevCandle, candle = {}):
-    return Math.max(prevCandle.high - prevCandle.low if prevCandle else 0, Math.abs(candle.high - prevCandle.close) if prevCandle else 0, Math.abs(candle.low - prevCandle.close) if prevCandle else 0)
+    return max([prevCandle.high - prevCandle.low if prevCandle else 0, Math.abs(candle.high - prevCandle.close) if prevCandle else 0, Math.abs(candle.low - prevCandle.close) if prevCandle else 0])
 
   def reset(self):
     super().reset()

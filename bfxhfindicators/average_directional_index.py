@@ -8,7 +8,7 @@ class ADX(Indicator):
       'args': args,
       'id': 'adx',
       'name': 'ADX(%f, %f)' % (smoothing, length),
-      'seedPeriod': Math.max(smoothing, length),
+      'seedPeriod': max([smoothing, length]),
       'dataType': 'candle',
       'dataKey': '*'
     })
