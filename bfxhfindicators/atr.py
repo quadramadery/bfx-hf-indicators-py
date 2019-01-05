@@ -17,13 +17,13 @@ class ATR(Indicator):
     return ATR(args)
 
   def seed(candles = []):
-    return _sum(map(lambda c, i: ATR.tr(None if i == 0 else candles[i - 1], c), candles)) / len(candles)
+    return sum(map(lambda c, i: ATR.tr(None if i == 0 else candles[i - 1], c), candles)) / len(candles)
 
   def calc(prevATR, p, prevCandle, candle):
     return ((prevATR * (p - 1)) + ATR.tr(prevCandle, candle)) / p
 
   def tr(prevCandle, candle = {}):
-    return max([prevCandle.high - prevCandle.low if prevCandle else 0, Math.abs(candle.high - prevCandle.close) if prevCandle else 0, Math.abs(candle.low - prevCandle.close) if prevCandle else 0])
+    return max([prevCandle.high - prevCandle.low if prevCandle else 0, abs(candle.high - prevCandle.close) if prevCandle else 0, abs(candle.low - prevCandle.close) if prevCandle else 0])
 
   def reset(self):
     super().reset()

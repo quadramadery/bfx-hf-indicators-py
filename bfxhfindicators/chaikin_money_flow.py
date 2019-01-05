@@ -35,7 +35,7 @@ class CMF(Indicator):
       self._bufferMFV[-1] = mfv
     if len(self._bufferMFV) < self._p or len(self._bufferVol) < self._p:
       return
-    return super().update(_sum(self._bufferMFV) / _sum(self._bufferVol))
+    return super().update(sum(self._bufferMFV) / sum(self._bufferVol))
 
   def add(self, candle):
     mf = 0 if candle.high == candle.low else ((candle.close - candle.low) - (candle.high - candle.close)) / (candle.high - candle.low)
@@ -48,6 +48,6 @@ class CMF(Indicator):
       del self._bufferMFV[0]
     if len(self._bufferMFV) < self._p or len(self._bufferVol) < self._p:
       return
-    return super().add(_sum(self._bufferMFV) / _sum(self._bufferVol))
+    return super().add(sum(self._bufferMFV) / sum(self._bufferVol))
 
 

@@ -48,7 +48,7 @@ class ADX(Indicator):
       return 0
     diUp = (upSMA.v() / atrV) * 100
     diDown = (downSMA.v() / atrV) * 100
-    indicators.adxSMA[type](Math.abs((diUp - diDown) / (diUp + diDown)))
+    indicators.adxSMA[type](abs((diUp - diDown) / (diUp + diDown)))
     return 100 * adxSMA.v()
 
   def update(self, candle):

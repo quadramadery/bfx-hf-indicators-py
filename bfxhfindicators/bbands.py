@@ -59,6 +59,6 @@ class BollingerBands(Indicator):
     return v >= target and prev <= target or v <= target and prev >= target
 
   def avg(self, n = 2):
-    return _sum(map(lambda v: v.middle, self.nValues(n))) / n
+    return sum(map(lambda v: v.middle, self.nValues(n))) / n
 
 

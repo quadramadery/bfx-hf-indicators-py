@@ -37,7 +37,7 @@ class TSI(Indicator):
     if not self._lastPrice:
       return self.v()
     pc = v - self._lastPrice
-    apc = Math.abs(v - self._lastPrice)
+    apc = abs(v - self._lastPrice)
     self._pcEMA.update(pc)
     self._apcEMA.update(apc)
     if self._pcEMA.ready():
@@ -62,7 +62,7 @@ class TSI(Indicator):
       self._lastPrice = v
       return self.v()
     pc = v - self._lastPrice
-    apc = Math.abs(v - self._lastPrice)
+    apc = abs(v - self._lastPrice)
     self._pcEMA.add(pc)
     self._apcEMA.add(apc)
     if self._pcEMA.ready():

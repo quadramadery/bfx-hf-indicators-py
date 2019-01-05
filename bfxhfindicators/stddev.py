@@ -20,10 +20,10 @@ class StdDeviation(Indicator):
   def _bufferStdDev(self):
     if len(self._buffer) < self._p:
       return 0
-    avg = _sum(self._buffer) / len(self._buffer)
-    dev = map(lambda v: Math.pow(v - avg, 2), self._buffer)
-    variance = _sum(dev) / (self._p - 1)
-    return Math.sqrt(variance)
+    avg = sum(self._buffer) / len(self._buffer)
+    dev = map(lambda v: pow(v - avg, 2), self._buffer)
+    variance = sum(dev) / (self._p - 1)
+    return sqrt(variance)
 
   def update(self, value):
     if len(self._buffer) == 0:

@@ -57,8 +57,8 @@ class Aroon(Indicator):
 
   def avg(self, n = 2):
     return {
-      'up': _sum(map(lambda v: v.up, self.nValues(n))) / n,
-      'down': _sum(map(lambda v: v.down, self.nValues(n))) / n
+      'up': sum(map(lambda v: v.up, self.nValues(n))) / n,
+      'down': sum(map(lambda v: v.down, self.nValues(n))) / n
     }
 
 
