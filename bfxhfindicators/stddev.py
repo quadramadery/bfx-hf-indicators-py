@@ -1,4 +1,3 @@
-from lodash/sum import _sum
 from bfxhfindicators.indicator import Indicator
 class StdDeviation(Indicator):
   def __init__(self, args = []):

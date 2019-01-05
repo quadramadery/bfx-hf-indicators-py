@@ -1,3 +1,4 @@
+from math import isfinite
 from bfxhfindicators.indicator import Indicator
 from bfxhfindicators.wma import WMA
 from bfxhfindicators.roc import ROC

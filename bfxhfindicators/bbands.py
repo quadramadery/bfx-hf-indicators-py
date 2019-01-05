@@ -1,4 +1,4 @@
-from lodash/sum import _sum
+from math import isfinite
 from bfxhfindicators.sma import SMA
 from bfxhfindicators.stddev import StdDeviation
 from bfxhfindicators.indicator import Indicator

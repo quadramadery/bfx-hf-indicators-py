@@ -1,3 +1,4 @@
+from math import isfinite
 from bfxhfindicators.indicator import Indicator
 from bfxhfindicators.sma import SMA
 class EOM(Indicator):

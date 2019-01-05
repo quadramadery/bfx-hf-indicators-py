@@ -1,3 +1,4 @@
+from math import isfinite
 from bfxhfindicators.indicator import Indicator
 from bfxhfindicators.ema import EMA
 class TRIX(Indicator):
